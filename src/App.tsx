@@ -6,16 +6,16 @@ import About from './pages/About';
 
 function App() {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <main>
+      <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
         </Routes>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
 
