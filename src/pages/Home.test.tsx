@@ -15,21 +15,20 @@ describe('Home page', () => {
       expect(screen.getByText(repo.name)).toBeInTheDocument();
     }
     const repoLinks = screen.getAllByRole('link');
-    // Each card has one link, so this verifies all cards are present
     expect(repoLinks).toHaveLength(REPOSITORIES.length);
   });
 
-  it('uses absolute positioning for the repository list', () => {
+  it('positions the repository list at the bottom', () => {
     render(<Home />);
     const helloWorldHeading = screen.getByRole('heading', { name: /hello world/i, level: 1 });
     const firstRepoCard = screen.getByText(REPOSITORIES[0].name);
 
-    // Check that the main container is relative
-    const mainContainer = helloWorldHeading.parentElement;
-    expect(mainContainer).toHaveClass('relative');
+    // Check that the heading's parent has flex-grow to push content down
+    const headingContainer = helloWorldHeading.parentElement;
+    expect(headingContainer).toHaveClass('flex-grow');
 
-    // Check that the repo container is absolute
-    const repoSectionContainer = firstRepoCard.closest('div.absolute');
-    expect(repoSectionContainer).toBeInTheDocument();
+    // Check that the repo card container is a sibling to the heading's container
+    const repoSectionContainer = firstRepoCard.closest('.w-full.py-8');
+    expect(headingContainer?.parentElement).toBe(repoSectionContainer?.parentElement);
   });
 });
