@@ -6,5 +6,5 @@ export default function Footer() {
       <p className="md:block hidden">Copyright &copy; {year} takagi.dev All rights reserved.</p>
       <p className="md:hidden">&copy; {year} takagi.dev</p>
     </div>
-  )
+  );
 }
