@@ -19,11 +19,13 @@ export default function Navbar() {
         <div className="pr-4 md:block hidden">
           <Link to="/" className="p-4">Home</Link>
           <Link to="/about" className="p-4">About</Link>
+          <a href="https://github.com/ytkg" target="_blank" rel="noopener noreferrer" className="p-4">GitHub</a>
         </div>
       </nav>
-      <div className={ isOpen ? "relative grid grid-rows-2 text-center items-center bg-gray-800 text-white font-mono" : "hidden" } onClick={toggle}>
+      <div className={ isOpen ? "relative grid grid-rows-3 text-center items-center bg-gray-800 text-white font-mono" : "hidden" } onClick={toggle}>
         <Link to="/" className="p-4">Home</Link>
         <Link to="/about" className="p-4">About</Link>
+        <a href="https://github.com/ytkg" target="_blank" rel="noopener noreferrer" className="p-4">GitHub</a>
       </div>
     </>
   );

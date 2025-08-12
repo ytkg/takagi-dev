@@ -18,5 +18,10 @@ describe('Navbar', () => {
     // so we use getAllByText
     expect(screen.getAllByText('Home')[0]).toBeInTheDocument();
     expect(screen.getAllByText('About')[0]).toBeInTheDocument();
+
+    // Check for the GitHub link
+    const githubLinks = screen.getAllByText('GitHub');
+    expect(githubLinks[0]).toBeInTheDocument();
+    expect(githubLinks[0]).toHaveAttribute('href', 'https://github.com/ytkg');
   });
 });
