@@ -36,6 +36,22 @@ const MOCK_REPOS: Repository[] = [
     forks_count: 0,
     language: 'Ruby',
   },
+  {
+    name: 'amazon-affiliate-product-selector',
+    html_url: 'https://github.com/ytkg/amazon-affiliate-product-selector',
+    description: 'A simple product selector for Amazon affiliates.',
+    stargazers_count: 1,
+    forks_count: 0,
+    language: 'TypeScript',
+  },
+  {
+    name: 'spotify-workers',
+    html_url: 'https://github.com/ytkg/spotify-workers',
+    description: 'A serverless function to get Spotify now playing.',
+    stargazers_count: 2,
+    forks_count: 0,
+    language: 'TypeScript',
+  },
 ];
 
 beforeEach(() => {
@@ -70,17 +86,17 @@ describe('Home page', () => {
     expect(repoLinks).toHaveLength(MOCK_REPOS.length);
   });
 
-  it('positions the repository list at the bottom', async () => {
+  it('uses absolute positioning for the repository list', async () => {
     render(<Home />);
     const helloWorldHeading = await screen.findByRole('heading', { name: /hello world/i, level: 1 });
     const firstRepoCard = await screen.findByText(MOCK_REPOS[0].name);
 
-    // Check that the heading's parent has flex-grow to push content down
-    const headingContainer = helloWorldHeading.parentElement;
-    expect(headingContainer).toHaveClass('flex-grow');
+    // Check that the main container is relative
+    const mainContainer = helloWorldHeading.parentElement;
+    expect(mainContainer).toHaveClass('relative');
 
-    // Check that the repo card container is a sibling to the heading's container
-    const repoSectionContainer = firstRepoCard.closest('.w-full.py-8');
-    expect(headingContainer?.parentElement).toBe(repoSectionContainer?.parentElement);
+    // Check that the repo container is absolute
+    const repoSectionContainer = firstRepoCard.closest('div.absolute');
+    expect(repoSectionContainer).toBeInTheDocument();
   });
 });
