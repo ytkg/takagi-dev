@@ -11,7 +11,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="flex justify-between items-center h-16 bg-white text-black relative shadow-sm font-mono" role="navigation">
+      <nav className="flex justify-between items-center h-16 bg-white text-black sticky top-0 z-50 shadow-sm font-mono" role="navigation">
         <Link to="/" className="pl-8">takagi.dev</Link>
         <div className="px-8 cursor-pointer md:hidden" onClick={toggle}>
           <Bars3Icon className="h-6 w-6" />
