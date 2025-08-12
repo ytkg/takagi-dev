@@ -9,26 +9,29 @@ describe('Home page', () => {
     expect(helloWorldHeading).toBeInTheDocument();
   });
 
-  it('renders all repository cards from the data file', () => {
+  it('renders a duplicated list of repository cards for infinite scroll', () => {
     render(<Home />);
-    for (const repo of REPOSITORIES) {
-      expect(screen.getByText(repo.name)).toBeInTheDocument();
-    }
+
+    // Check that the number of rendered links is double the source data
     const repoLinks = screen.getAllByRole('link');
-    expect(repoLinks).toHaveLength(REPOSITORIES.length);
+    expect(repoLinks).toHaveLength(REPOSITORIES.length * 2);
+
+    // Check that the animation class is applied to the correct container
+    const scrollingContainer = screen.getByTestId('repo-scroller');
+    expect(scrollingContainer).toHaveClass('animate-scroll');
   });
 
   it('positions the repository list at the bottom', () => {
     render(<Home />);
     const helloWorldHeading = screen.getByRole('heading', { name: /hello world/i, level: 1 });
-    const firstRepoCard = screen.getByText(REPOSITORIES[0].name);
+    const firstRepoCard = screen.getAllByText(REPOSITORIES[0].name)[0];
 
     // Check that the heading's parent has flex-grow to push content down
     const headingContainer = helloWorldHeading.parentElement;
     expect(headingContainer).toHaveClass('flex-grow');
 
     // Check that the repo card container is a sibling to the heading's container
-    const repoSectionContainer = firstRepoCard.closest('.w-full.py-8');
+    const repoSectionContainer = firstRepoCard.closest('.w-full.overflow-hidden');
     expect(headingContainer?.parentElement).toBe(repoSectionContainer?.parentElement);
   });
 });
