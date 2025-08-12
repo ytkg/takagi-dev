@@ -70,23 +70,17 @@ describe('Home page', () => {
     expect(repoLinks).toHaveLength(MOCK_REPOS.length);
   });
 
-  it('has a single hero container for all content', async () => {
+  it('positions the repository list at the bottom', async () => {
     render(<Home />);
     const helloWorldHeading = await screen.findByRole('heading', { name: /hello world/i, level: 1 });
     const firstRepoCard = await screen.findByText(MOCK_REPOS[0].name);
 
-    // Find the container of the repo cards
-    const repoContainer = firstRepoCard.closest('.w-full.max-w-4xl');
+    // Check that the heading's parent has flex-grow to push content down
+    const headingContainer = helloWorldHeading.parentElement;
+    expect(headingContainer).toHaveClass('flex-grow');
 
-    // Check that the heading and the repo container share the same parent
-    expect(helloWorldHeading.parentElement).toBe(repoContainer?.parentElement);
-
-    // Check that the parent has the hero section classes
-    const heroContainer = helloWorldHeading.parentElement;
-    expect(heroContainer).toHaveClass('flex');
-    expect(heroContainer).toHaveClass('flex-col');
-    expect(heroContainer).toHaveClass('justify-center');
-    expect(heroContainer).toHaveClass('items-center');
-    expect(heroContainer).toHaveClass('h-screen');
+    // Check that the repo card container is a sibling to the heading's container
+    const repoSectionContainer = firstRepoCard.closest('.w-full.py-8');
+    expect(headingContainer?.parentElement).toBe(repoSectionContainer?.parentElement);
   });
 });
