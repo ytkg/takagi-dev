@@ -1,5 +1,6 @@
 {
   "files": [],
+  "include": ["vite.config.ts", "src/setupTests.ts"],
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
