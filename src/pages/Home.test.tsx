@@ -55,16 +55,16 @@ afterEach(() => {
 });
 
 describe('Home page', () => {
-  it('renders both main headings', async () => {
+  it('renders the main heading', async () => {
     render(<Home />);
 
     // Check for "Hello World!"
     const helloWorldHeading = await screen.findByRole('heading', { name: /hello world/i, level: 1 });
     expect(helloWorldHeading).toBeInTheDocument();
 
-    // Check for "My Repositories"
-    const reposHeading = await screen.findByRole('heading', { name: /my repositories/i, level: 2 });
-    expect(reposHeading).toBeInTheDocument();
+    // Ensure "My Repositories" heading is NOT present
+    const reposHeading = screen.queryByRole('heading', { name: /my repositories/i });
+    expect(reposHeading).not.toBeInTheDocument();
   });
 
   it('renders repository cards after fetching', async () => {
