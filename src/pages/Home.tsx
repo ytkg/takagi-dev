@@ -22,15 +22,20 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-white py-12">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-8">My Repositories</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {repos.map((repo) => (
-            <RepoCard key={repo.name} repo={repo} />
-          ))}
+    <>
+      <div className="flex flex-col justify-center items-center bg-white h-screen -mt-16 -mb-12">
+        <h1 className="lg:text-8xl md:text-7xl sm:text-6xl text-4xl font-black mb-14">Hello World!</h1>
+      </div>
+      <div className="bg-white py-12">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-8">My Repositories</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {repos.map((repo) => (
+              <RepoCard key={repo.name} repo={repo} />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

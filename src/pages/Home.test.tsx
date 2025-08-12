@@ -39,16 +39,10 @@ const MOCK_REPOS: Repository[] = [
 ];
 
 beforeEach(() => {
-  // Mock the global fetch function
   global.fetch = vi.fn().mockImplementation((url: string) => {
-    // Extract the repo full name (e.g., 'ytkg/switchbot') from the URL
     const repoFullName = url.split('repos/')[1];
     const repoName = repoFullName.split('/')[1];
-
-    // Find the corresponding mock repository
     const mockRepo = MOCK_REPOS.find(repo => repo.name === repoName);
-
-    // Return the mock repo data as a promise
     return Promise.resolve({
       ok: true,
       json: () => Promise.resolve(mockRepo),
@@ -57,28 +51,29 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  // Restore the original fetch function
   vi.restoreAllMocks();
 });
 
 describe('Home page', () => {
-  it('renders the main heading', async () => {
+  it('renders both main headings', async () => {
     render(<Home />);
-    // Use findByRole to wait for the heading to appear and handle async state updates
-    const headingElement = await screen.findByRole('heading', { name: /my repositories/i });
-    expect(headingElement).toBeInTheDocument();
+
+    // Check for "Hello World!"
+    const helloWorldHeading = await screen.findByRole('heading', { name: /hello world/i, level: 1 });
+    expect(helloWorldHeading).toBeInTheDocument();
+
+    // Check for "My Repositories"
+    const reposHeading = await screen.findByRole('heading', { name: /my repositories/i, level: 2 });
+    expect(reposHeading).toBeInTheDocument();
   });
 
   it('renders repository cards after fetching', async () => {
     render(<Home />);
 
-    // Wait for all repository cards to be rendered by looking for their titles
     for (const repo of MOCK_REPOS) {
       expect(await screen.findByText(repo.name)).toBeInTheDocument();
     }
 
-    // Check that the total number of links matches the number of repos
-    // Each card has one link, so this verifies all cards are present
     const repoLinks = screen.getAllByRole('link');
     expect(repoLinks).toHaveLength(MOCK_REPOS.length);
   });
