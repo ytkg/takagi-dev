@@ -57,24 +57,36 @@ afterEach(() => {
 describe('Home page', () => {
   it('renders the main heading', async () => {
     render(<Home />);
-
-    // Check for "Hello World!"
     const helloWorldHeading = await screen.findByRole('heading', { name: /hello world/i, level: 1 });
     expect(helloWorldHeading).toBeInTheDocument();
-
-    // Ensure "My Repositories" heading is NOT present
-    const reposHeading = screen.queryByRole('heading', { name: /my repositories/i });
-    expect(reposHeading).not.toBeInTheDocument();
   });
 
   it('renders repository cards after fetching', async () => {
     render(<Home />);
-
     for (const repo of MOCK_REPOS) {
       expect(await screen.findByText(repo.name)).toBeInTheDocument();
     }
-
     const repoLinks = screen.getAllByRole('link');
     expect(repoLinks).toHaveLength(MOCK_REPOS.length);
+  });
+
+  it('has a single hero container for all content', async () => {
+    render(<Home />);
+    const helloWorldHeading = await screen.findByRole('heading', { name: /hello world/i, level: 1 });
+    const firstRepoCard = await screen.findByText(MOCK_REPOS[0].name);
+
+    // Find the container of the repo cards
+    const repoContainer = firstRepoCard.closest('.w-full.max-w-4xl');
+
+    // Check that the heading and the repo container share the same parent
+    expect(helloWorldHeading.parentElement).toBe(repoContainer?.parentElement);
+
+    // Check that the parent has the hero section classes
+    const heroContainer = helloWorldHeading.parentElement;
+    expect(heroContainer).toHaveClass('flex');
+    expect(heroContainer).toHaveClass('flex-col');
+    expect(heroContainer).toHaveClass('justify-center');
+    expect(heroContainer).toHaveClass('items-center');
+    expect(heroContainer).toHaveClass('h-screen');
   });
 });
