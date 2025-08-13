@@ -2,11 +2,11 @@ import { render, screen } from '@testing-library/react';
 import About from './About';
 
 describe('About page', () => {
-  it('renders the ASCII art', () => {
+  it('renders the self-introduction SVG', () => {
     render(<About />);
 
-    const asciiArt = screen.getByText(/takagi@ytkg\.jp/);
-    expect(asciiArt).toBeInTheDocument();
-    expect(asciiArt.tagName).toBe('PRE');
+    const svgImage = screen.getByAltText(/self-introduction ascii art/i);
+    expect(svgImage).toBeInTheDocument();
+    expect(svgImage).toHaveAttribute('src', '/ascii.svg');
   });
 });

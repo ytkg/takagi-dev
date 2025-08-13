@@ -1,0 +1,18 @@
+<svg width="230" height="80" viewBox="0 0 230 80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <style>
+    text {
+      font-family: monospace;
+      font-size: 14px;
+      fill: black;
+    }
+    a {
+      fill: blue;
+      text-decoration: underline;
+    }
+  </style>
+
+  <text y="15">┌ me ┐ ┌ <a xlink:href="https://example.com/web" target="_blank"><tspan>web</tspan></a> ┐</text>
+  <text y="35">takagi@ytkg.jp</text>
+  <text y="55">│     └ <a xlink:href="https://example.com/x" target="_blank"><tspan>x</tspan></a> ┘  │</text>
+  <text y="75">└─── mail ───┘</text>
+</svg>
