@@ -7,23 +7,21 @@ describe('ProductCard component', () => {
     id: 1,
     name: 'Test Product',
     description: 'This is a test product.',
-    imageUrl: 'https://placehold.jp/300x200.png?text=Test+Product',
+    siteUrl: 'https://example.com/test-product',
   };
 
-  it('renders all product information correctly', () => {
+  it('renders product information and a link button correctly', () => {
     render(<ProductCard product={mockProduct} />);
 
     // Check for the product name
-    const nameElement = screen.getByText(mockProduct.name);
-    expect(nameElement).toBeInTheDocument();
+    expect(screen.getByText(mockProduct.name)).toBeInTheDocument();
 
     // Check for the description
-    const descriptionElement = screen.getByText(mockProduct.description);
-    expect(descriptionElement).toBeInTheDocument();
+    expect(screen.getByText(mockProduct.description)).toBeInTheDocument();
 
-    // Check for the image
-    const imageElement = screen.getByRole('img', { name: mockProduct.name });
-    expect(imageElement).toBeInTheDocument();
-    expect(imageElement).toHaveAttribute('src', mockProduct.imageUrl);
+    // Check for the link button
+    const linkButton = screen.getByRole('link', { name: 'サイトを見る' });
+    expect(linkButton).toBeInTheDocument();
+    expect(linkButton).toHaveAttribute('href', mockProduct.siteUrl);
   });
 });
