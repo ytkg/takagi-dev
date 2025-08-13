@@ -7,7 +7,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product, onDetailsClick }: ProductCardProps) {
   return (
-    <div className="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden w-80 flex flex-col justify-between">
+    <div className="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden flex flex-col justify-between">
       <div className="p-6">
         <h3 className="text-xl font-bold mb-2 truncate">{product.name}</h3>
         <a
