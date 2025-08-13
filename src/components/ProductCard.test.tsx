@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { vi } from 'vitest';
 import ProductCard from './ProductCard';
 import type { Product } from '../types';
 
@@ -10,18 +11,23 @@ describe('ProductCard component', () => {
     siteUrl: 'https://example.com/test-product',
   };
 
-  it('renders product information and a link button correctly', () => {
-    render(<ProductCard product={mockProduct} />);
+  it('renders product information correctly', () => {
+    const handleClick = vi.fn();
+    render(<ProductCard product={mockProduct} onClick={handleClick} />);
 
-    // Check for the product name
     expect(screen.getByText(mockProduct.name)).toBeInTheDocument();
-
-    // Check for the description
     expect(screen.getByText(mockProduct.description)).toBeInTheDocument();
+  });
 
-    // Check for the link button
-    const linkButton = screen.getByRole('link', { name: 'Visit Site' });
-    expect(linkButton).toBeInTheDocument();
-    expect(linkButton).toHaveAttribute('href', mockProduct.siteUrl);
+  it('calls the onClick handler when clicked', () => {
+    const handleClick = vi.fn();
+    render(<ProductCard product={mockProduct} onClick={handleClick} />);
+
+    const cardElement = screen.getByText(mockProduct.name).parentElement?.parentElement;
+    if (cardElement) {
+      fireEvent.click(cardElement);
+    }
+
+    expect(handleClick).toHaveBeenCalledTimes(1);
   });
 });
