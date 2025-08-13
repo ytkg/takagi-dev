@@ -65,18 +65,19 @@ describe('Navbar', () => {
     const mobileMenuToggle = screen.getByRole('navigation').querySelector('.px-8.cursor-pointer.md\\:hidden');
     expect(mobileMenuToggle).toBeInTheDocument();
 
-    // The mobile menu container should be hidden initially
-    const mobileNavContainer = screen.getByRole('navigation').nextElementSibling;
-    expect(mobileNavContainer).toHaveClass('hidden');
+    // The mobile menu drawer should be in the DOM but translated out of view
+    const mobileNavContainer = screen.getByRole('dialog', { hidden: true });
+    expect(mobileNavContainer).toHaveClass('translate-x-full');
 
     // Click to open the main mobile menu
     await user.click(mobileMenuToggle);
 
-    // Now the mobile menu container should be visible
-    expect(mobileNavContainer).not.toHaveClass('hidden');
+    // Now the mobile menu drawer should be in view
+    expect(mobileNavContainer).not.toHaveClass('translate-x-full');
+    expect(mobileNavContainer).toHaveClass('translate-x-0');
 
     // Use `within` to scope queries to the mobile menu
-    const mobileNav = within(mobileNavContainer as HTMLElement);
+    const mobileNav = within(mobileNavContainer);
 
     const mobileToolsButton = mobileNav.getByRole('button', { name: /Tools/i });
     expect(mobileToolsButton).toBeVisible();
@@ -96,8 +97,12 @@ describe('Navbar', () => {
     await user.click(mobileToolsButton);
     expect(mobileNav.queryByRole('link', { name: 'Tool 1' })).not.toBeInTheDocument();
 
-    // Click the main toggle to close the mobile menu
-    await user.click(mobileMenuToggle);
-    expect(mobileNavContainer).toHaveClass('hidden');
+    // Find and click the close button (X icon) to close the mobile menu
+    const closeButton = mobileNav.getByRole('button', { name: /close menu/i });
+    await user.click(closeButton);
+
+    // The drawer should be hidden again (i.e., translated out of view)
+    expect(mobileNavContainer).toHaveClass('translate-x-full');
+    expect(mobileNavContainer).not.toHaveClass('translate-x-0');
   });
 });
