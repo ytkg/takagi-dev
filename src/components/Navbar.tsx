@@ -48,7 +48,7 @@ export default function Navbar() {
         className={`fixed top-0 right-0 h-full w-64 bg-gray-800 text-white font-mono z-60 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
       >
         <div className="flex justify-end p-4">
-          <button onClick={toggle} aria-label="Close menu">
+          <button onClick={toggle} aria-label="Close menu" className="cursor-pointer">
             <XMarkIcon className="h-6 w-6 text-white" />
           </button>
         </div>
