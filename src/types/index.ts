@@ -6,3 +6,10 @@ export interface Repository {
   forks_count: number;
   language: string;
 }
+
+export interface Product {
+  id: number;
+  name: string;
+  description: string;
+  imageUrl: string;
+}
