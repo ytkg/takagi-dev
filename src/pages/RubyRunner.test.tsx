@@ -42,11 +42,14 @@ describe('RubyRunner', () => {
     expect(screen.getByText('Code Input')).toBeInTheDocument();
     expect(screen.getByText('Output')).toBeInTheDocument();
 
-    const runButton = screen.getByRole('button', { name: /initializing/i });
-    expect(runButton).toBeDisabled();
+    // Button is disabled during initialization
+    const button = screen.getByRole('button', { name: /initializing/i });
+    expect(button).toBeDisabled();
 
+    // After successful initialization, button is enabled and text changes to "Run"
     await waitFor(() => {
-        expect(screen.getByRole('button', { name: /run/i })).toBeEnabled();
+        const runButton = screen.getByRole('button', { name: /run/i });
+        expect(runButton).toBeEnabled();
         expect(screen.getByText('Ruby VM is ready. Click "Run" to execute code.')).toBeInTheDocument();
     });
 
@@ -95,15 +98,20 @@ describe('RubyRunner', () => {
     });
   });
 
-  it('should display an error if the VM fails to initialize', async () => {
+  it('should display an error and keep button disabled if VM fails to initialize', async () => {
     (RubyWASM.DefaultRubyVM as vi.Mock).mockRejectedValue(new Error('WASM Load Error'));
 
     render(<RubyRunner />);
 
+    // Wait for the error message to be displayed
     await waitFor(() => {
         expect(screen.getByText(/error: failed to initialize ruby vm/i)).toBeInTheDocument();
         expect(screen.getByText(/wasm load error/i)).toBeInTheDocument();
     });
+
+    // The button should now say "Run" but be disabled
+    const runButton = screen.getByRole('button', { name: /run/i });
+    expect(runButton).toBeDisabled();
   });
 
   it('should display an error if the code execution fails', async () => {

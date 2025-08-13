@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as RubyWASM from 'ruby-head-wasm-wasi';
+import Editor from 'react-simple-code-editor';
+import { highlight, languages } from 'prismjs';
+import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-ruby';
+import 'prismjs/themes/prism-tomorrow.css';
 
 interface RubyVM {
   eval: (code: string) => Promise<unknown>;
@@ -10,6 +15,7 @@ const RubyRunner: React.FC = () => {
   const [code, setCode] = useState('puts "Hello, World!"');
   const [output, setOutput] = useState('');
   const [isInitializing, setIsInitializing] = useState(true);
+  const [vmReady, setVmReady] = useState(false);
   const vmRef = useRef<RubyVM | null>(null);
 
   useEffect(() => {
@@ -18,12 +24,13 @@ const RubyRunner: React.FC = () => {
       try {
         const vm = await RubyWASM.DefaultRubyVM();
         vmRef.current = vm;
-        setIsInitializing(false);
+        setVmReady(true);
         setOutput('Ruby VM is ready. Click "Run" to execute code.');
       } catch (err) {
         console.error('Failed to initialize Ruby VM:', err);
         const errorMessage = err instanceof Error ? err.message : String(err);
         setOutput('Error: Failed to initialize Ruby VM.\n' + errorMessage);
+      } finally {
         setIsInitializing(false);
       }
     };
@@ -62,18 +69,25 @@ const RubyRunner: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <h2 className="text-xl font-semibold mb-2">Code Input</h2>
-          <textarea
-            className="w-full h-64 p-2 border rounded-md font-mono bg-gray-900 text-green-400"
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-            spellCheck="false"
-            autoCapitalize="off"
-            autoCorrect="off"
-          />
+          <div className="editor-container w-full h-64 border rounded-md bg-gray-900 text-green-400 overflow-auto relative">
+            <Editor
+              value={code}
+              onValueChange={code => setCode(code)}
+              highlight={code => highlight(code, languages.ruby, 'ruby')}
+              padding={10}
+              style={{
+                fontFamily: '"Fira code", "Fira Mono", monospace',
+                fontSize: 14,
+                outline: 'none',
+                border: 'none',
+              }}
+              className="editor"
+            />
+          </div>
           <button
             onClick={runCode}
-            disabled={isInitializing}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            disabled={!vmReady}
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-400 cursor-pointer disabled:cursor-not-allowed"
           >
             {isInitializing ? 'Initializing...' : 'Run'}
           </button>
