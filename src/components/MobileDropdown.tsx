@@ -18,7 +18,7 @@ export const MobileDropdown = ({ item, toggleMenu }: MobileDropdownProps) => {
 
   return (
     <div className="w-full">
-      <button onClick={toggleMobileTools} className="p-4 w-full inline-flex justify-center items-center">
+      <button onClick={toggleMobileTools} className="p-4 w-full inline-flex justify-center items-center cursor-pointer">
         <span>{item.text}</span>
         <ChevronDownIcon className={`h-4 w-4 ml-1 transition-transform duration-200 ${isMobileToolsOpen ? 'rotate-180' : ''}`} />
       </button>
