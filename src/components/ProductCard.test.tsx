@@ -11,11 +11,14 @@ describe('ProductCard component', () => {
     siteUrl: 'https://example.com/test-product',
   };
 
-  it('renders product name and site URL', () => {
+  it('renders product name and a clickable site URL', () => {
     render(<ProductCard product={mockProduct} onDetailsClick={() => {}} />);
 
     expect(screen.getByText(mockProduct.name)).toBeInTheDocument();
-    expect(screen.getByText(mockProduct.siteUrl)).toBeInTheDocument();
+
+    const siteLink = screen.getByRole('link', { name: mockProduct.siteUrl });
+    expect(siteLink).toBeInTheDocument();
+    expect(siteLink).toHaveAttribute('href', mockProduct.siteUrl);
   });
 
   it('calls onDetailsClick when the "Details" button is clicked', () => {

@@ -35,19 +35,15 @@ export default function Products() {
         {selectedProduct && (
           <div>
             <h2 className="text-2xl font-bold mb-2">{selectedProduct.name}</h2>
-            <p className="text-sm text-gray-500 mb-4 break-all">{selectedProduct.siteUrl}</p>
+            <a
+              href={selectedProduct.siteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-blue-600 hover:underline mb-4 break-all block"
+            >
+              {selectedProduct.siteUrl}
+            </a>
             <p className="text-gray-700 mb-6">{selectedProduct.description}</p>
-
-            <div className="mb-6">
-              <a
-                href={selectedProduct.siteUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300"
-              >
-                Visit Site
-              </a>
-            </div>
 
             {selectedProduct.repoUrls && selectedProduct.repoUrls.length > 0 && (
               <div>

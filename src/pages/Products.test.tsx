@@ -17,25 +17,25 @@ describe('Products page', () => {
   });
 
   it('opens the modal with correct content when "Details" button is clicked', () => {
-    // Find the "Details" button associated with the first product and click it
-    // We can find the card container and then the button within it.
     const firstProductCard = screen.getByText(products[0].name).closest('div.bg-white');
     const detailsButton = within(firstProductCard!).getByRole('button', { name: 'Details' });
     fireEvent.click(detailsButton);
 
-    // Modal should now be open
     const modal = screen.getByTestId('modal-content');
     expect(modal).toBeInTheDocument();
 
     // Check for content *within* the modal
     expect(within(modal).getByRole('heading', { name: products[0].name, level: 2 })).toBeInTheDocument();
-    expect(within(modal).getByText(products[0].siteUrl)).toBeInTheDocument();
     expect(within(modal).getByText(products[0].description)).toBeInTheDocument();
-    expect(within(modal).getByRole('link', { name: 'Visit Site' })).toBeInTheDocument();
+
+    // Check that the site URL is a link and the "Visit Site" button is gone
+    const siteLink = within(modal).getByRole('link', { name: products[0].siteUrl });
+    expect(siteLink).toBeInTheDocument();
+    expect(within(modal).queryByRole('link', { name: 'Visit Site' })).not.toBeInTheDocument();
 
     // Check for repository links
     const repoLinks = within(modal).getAllByRole('link');
-    // There should be a "Visit Site" link + two repo links for the first product
+    // There should be the site link + two repo links for the first product
     expect(repoLinks).toHaveLength(3);
     expect(repoLinks[1]).toHaveTextContent(products[0].repoUrls![0]);
     expect(repoLinks[2]).toHaveTextContent(products[0].repoUrls![1]);
