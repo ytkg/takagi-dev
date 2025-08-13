@@ -20,7 +20,7 @@ describe('ProductCard component', () => {
     expect(screen.getByText(mockProduct.description)).toBeInTheDocument();
 
     // Check for the link button
-    const linkButton = screen.getByRole('link', { name: 'サイトを見る' });
+    const linkButton = screen.getByRole('link', { name: 'Visit Site' });
     expect(linkButton).toBeInTheDocument();
     expect(linkButton).toHaveAttribute('href', mockProduct.siteUrl);
   });

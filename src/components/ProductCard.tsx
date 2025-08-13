@@ -18,7 +18,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           rel="noopener noreferrer"
           className="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300"
         >
-          サイトを見る
+          Visit Site
         </a>
       </div>
     </div>
