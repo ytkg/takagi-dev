@@ -2,18 +2,25 @@ import type { Product } from '../types';
 
 interface ProductCardProps {
   product: Product;
-  onClick: () => void;
+  onDetailsClick: () => void;
 }
 
-export default function ProductCard({ product, onClick }: ProductCardProps) {
+export default function ProductCard({ product, onDetailsClick }: ProductCardProps) {
   return (
-    <div
-      className="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden w-80 flex flex-col cursor-pointer hover:shadow-xl transition-shadow duration-300"
-      onClick={onClick}
-    >
-      <div className="p-6 flex-grow">
-        <h3 className="text-xl font-bold mb-2">{product.name}</h3>
-        <p className="text-gray-700">{product.description}</p>
+    <div className="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden w-80 flex flex-col justify-between">
+      <div className="p-6">
+        <h3 className="text-xl font-bold mb-2 truncate">{product.name}</h3>
+        <p className="text-sm text-gray-500 truncate">
+          {product.siteUrl}
+        </p>
+      </div>
+      <div className="p-6 pt-0">
+        <button
+          onClick={onDetailsClick}
+          className="inline-block bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded transition-colors duration-300"
+        >
+          Details
+        </button>
       </div>
     </div>
   );

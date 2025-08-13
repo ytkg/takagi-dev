@@ -6,7 +6,7 @@ export const products: Product[] = [
     name: 'Product 1',
     description: 'This is the description for Product 1. It features an innovative design and amazing functionality.',
     siteUrl: 'https://example.com/product1',
-    repoUrl: 'https://github.com/example/product1',
+    repoUrls: ['https://github.com/example/product1-frontend', 'https://github.com/example/product1-backend'],
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ export const products: Product[] = [
     name: 'Product 3',
     description: 'This is the description for Product 3. A simple, yet powerful tool for everyone.',
     siteUrl: 'https://example.com/product3',
-    repoUrl: 'https://github.com/example/product3',
+    repoUrls: ['https://github.com/example/product3'],
   },
   {
     id: 4,

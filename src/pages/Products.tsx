@@ -8,7 +8,7 @@ export default function Products() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleCardClick = (product: Product) => {
+  const handleDetailsClick = (product: Product) => {
     setSelectedProduct(product);
     setIsModalOpen(true);
   };
@@ -26,7 +26,7 @@ export default function Products() {
           <ProductCard
             key={product.id}
             product={product}
-            onClick={() => handleCardClick(product)}
+            onDetailsClick={() => handleDetailsClick(product)}
           />
         ))}
       </div>
@@ -34,9 +34,11 @@ export default function Products() {
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         {selectedProduct && (
           <div>
-            <h2 className="text-2xl font-bold mb-4">{selectedProduct.name}</h2>
+            <h2 className="text-2xl font-bold mb-2">{selectedProduct.name}</h2>
+            <p className="text-sm text-gray-500 mb-4 break-all">{selectedProduct.siteUrl}</p>
             <p className="text-gray-700 mb-6">{selectedProduct.description}</p>
-            <div className="flex space-x-4">
+
+            <div className="mb-6">
               <a
                 href={selectedProduct.siteUrl}
                 target="_blank"
@@ -45,17 +47,22 @@ export default function Products() {
               >
                 Visit Site
               </a>
-              {selectedProduct.repoUrl && (
-                <a
-                  href={selectedProduct.repoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded transition-colors duration-300"
-                >
-                  View Repository
-                </a>
-              )}
             </div>
+
+            {selectedProduct.repoUrls && selectedProduct.repoUrls.length > 0 && (
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Repositories:</h3>
+                <ul className="list-disc list-inside space-y-1">
+                  {selectedProduct.repoUrls.map((url, index) => (
+                    <li key={index}>
+                      <a href={url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline break-all">
+                        {url}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         )}
       </Modal>

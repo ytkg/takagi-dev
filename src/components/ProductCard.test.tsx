@@ -11,23 +11,20 @@ describe('ProductCard component', () => {
     siteUrl: 'https://example.com/test-product',
   };
 
-  it('renders product information correctly', () => {
-    const handleClick = vi.fn();
-    render(<ProductCard product={mockProduct} onClick={handleClick} />);
+  it('renders product name and site URL', () => {
+    render(<ProductCard product={mockProduct} onDetailsClick={() => {}} />);
 
     expect(screen.getByText(mockProduct.name)).toBeInTheDocument();
-    expect(screen.getByText(mockProduct.description)).toBeInTheDocument();
+    expect(screen.getByText(mockProduct.siteUrl)).toBeInTheDocument();
   });
 
-  it('calls the onClick handler when clicked', () => {
-    const handleClick = vi.fn();
-    render(<ProductCard product={mockProduct} onClick={handleClick} />);
+  it('calls onDetailsClick when the "Details" button is clicked', () => {
+    const handleDetailsClick = vi.fn();
+    render(<ProductCard product={mockProduct} onDetailsClick={handleDetailsClick} />);
 
-    const cardElement = screen.getByText(mockProduct.name).parentElement?.parentElement;
-    if (cardElement) {
-      fireEvent.click(cardElement);
-    }
+    const detailsButton = screen.getByRole('button', { name: 'Details' });
+    fireEvent.click(detailsButton);
 
-    expect(handleClick).toHaveBeenCalledTimes(1);
+    expect(handleDetailsClick).toHaveBeenCalledTimes(1);
   });
 });
