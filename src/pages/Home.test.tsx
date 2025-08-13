@@ -12,11 +12,10 @@ vi.stubGlobal('cancelAnimationFrame', (id: number) => {
 
 
 describe('Home page', () => {
-  it('renders the ASCII art', () => {
+  it('renders the main heading', () => {
     render(<Home />);
-    const asciiArt = screen.getByText(/takagi@ytkg\.jp/);
-    expect(asciiArt).toBeInTheDocument();
-    expect(asciiArt.tagName).toBe('PRE');
+    const helloWorldHeading = screen.getByRole('heading', { name: /hello world/i, level: 1 });
+    expect(helloWorldHeading).toBeInTheDocument();
   });
 
   it('renders a duplicated list of repository cards', () => {
@@ -28,15 +27,15 @@ describe('Home page', () => {
 
   it('positions the repository list at the bottom', () => {
     render(<Home />);
-    const asciiArt = screen.getByText(/takagi@ytkg\.jp/);
+    const helloWorldHeading = screen.getByRole('heading', { name: /hello world/i, level: 1 });
     const firstRepoCard = screen.getAllByText(REPOSITORIES[0].name)[0];
 
-    // Check that the ascii art's parent has flex-grow to push content down
-    const asciiArtContainer = asciiArt.parentElement;
-    expect(asciiArtContainer).toHaveClass('flex-grow');
+    // Check that the heading's parent has flex-grow to push content down
+    const headingContainer = helloWorldHeading.parentElement;
+    expect(headingContainer).toHaveClass('flex-grow');
 
-    // Check that the repo card container is a sibling to the ascii art's container
+    // Check that the repo card container is a sibling to the heading's container
     const repoSectionContainer = firstRepoCard.closest('.w-full.overflow-x-auto');
-    expect(asciiArtContainer?.parentElement).toBe(repoSectionContainer?.parentElement);
+    expect(headingContainer?.parentElement).toBe(repoSectionContainer?.parentElement);
   });
 });
