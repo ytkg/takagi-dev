@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
+import { navItems } from '../data/navItems';
+import { DesktopDropdown } from './DesktopDropdown';
+import { MobileDropdown } from './MobileDropdown';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,15 +20,33 @@ export default function Navbar() {
           <Bars3Icon className="h-6 w-6" />
         </div>
         <div className="pr-4 md:block hidden">
-          <Link to="/" className="p-4">Home</Link>
-          <Link to="/about" className="p-4">About</Link>
-          <a href="https://github.com/ytkg" target="_blank" rel="noopener noreferrer" className="p-4">GitHub</a>
+          {navItems.map((item) => {
+            switch (item.type) {
+              case 'link':
+                return <Link key={item.to} to={item.to} className="p-4">{item.text}</Link>;
+              case 'external':
+                return <a key={item.href} href={item.href} target="_blank" rel="noopener noreferrer" className="p-4">{item.text}</a>;
+              case 'dropdown':
+                return <DesktopDropdown key={item.text} item={item} />;
+              default:
+                return null;
+            }
+          })}
         </div>
       </nav>
-      <div className={ isOpen ? "relative grid grid-rows-3 text-center items-center bg-gray-800 text-white font-mono" : "hidden" } onClick={toggle}>
-        <Link to="/" className="p-4">Home</Link>
-        <Link to="/about" className="p-4">About</Link>
-        <a href="https://github.com/ytkg" target="_blank" rel="noopener noreferrer" className="p-4">GitHub</a>
+      <div className={ isOpen ? "relative grid grid-rows-auto text-center items-center bg-gray-800 text-white font-mono" : "hidden" } onClick={toggle}>
+        {navItems.map((item) => {
+            switch (item.type) {
+              case 'link':
+                return <Link key={item.to} to={item.to} className="p-4">{item.text}</Link>;
+              case 'external':
+                return <a key={item.href} href={item.href} target="_blank" rel="noopener noreferrer" className="p-4">{item.text}</a>;
+              case 'dropdown':
+                return <MobileDropdown key={item.text} item={item} />;
+              default:
+                return null;
+            }
+          })}
       </div>
     </>
   );

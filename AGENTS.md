@@ -58,8 +58,11 @@ Here is a typical workflow for completing a task in this repository.
     Before finalizing your changes, ensure your code adheres to the project's style guidelines and that all tests pass.
     ```bash
     npm run lint
+    npm test
     ```
-    Fix any errors or warnings reported by the linter. *(Note: This project does not currently have a dedicated test script. Running the linter is the primary check.)*
+    Fix any errors or warnings reported by the linter and ensure all tests pass.
+
+    **Important:** When adding new features (e.g., new components, new logic), you **must** add corresponding tests to validate their functionality.
 
 5.  **Verify Production Build (Optional):**
     It's a good practice to confirm that the application builds successfully for production.
