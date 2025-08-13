@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, MouseEvent } from 'react';
 import { Bars3Icon, ChevronDownIcon } from '@heroicons/react/24/outline';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
+  const [isMobileToolsOpen, setMobileIsToolsOpen] = useState(false);
 
   const toggle = () => {
     setIsOpen(!isOpen);
+    setMobileIsToolsOpen(false); // Close mobile tools when main menu closes
   };
 
   const handleToolsEnter = () => {
@@ -16,6 +18,11 @@ export default function Navbar() {
 
   const handleToolsLeave = () => {
     setIsToolsOpen(false);
+  };
+
+  const toggleMobileTools = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    setMobileIsToolsOpen(!isMobileToolsOpen);
   };
 
   return (
@@ -46,12 +53,22 @@ export default function Navbar() {
           <a href="https://github.com/ytkg" target="_blank" rel="noopener noreferrer" className="p-4">GitHub</a>
         </div>
       </nav>
-      <div className={ isOpen ? "relative grid grid-rows-6 text-center items-center bg-gray-800 text-white font-mono" : "hidden" } onClick={toggle}>
+      <div className={ isOpen ? "relative grid grid-rows-auto text-center items-center bg-gray-800 text-white font-mono" : "hidden" } onClick={toggle}>
         <Link to="/" className="p-4">Home</Link>
         <Link to="/about" className="p-4">About</Link>
-        <Link to="/tools/tool1" className="p-4">Tool 1</Link>
-        <Link to="/tools/tool2" className="p-4">Tool 2</Link>
-        <Link to="/tools/tool3" className="p-4">Tool 3</Link>
+        <div className="w-full">
+          <button onClick={toggleMobileTools} className="p-4 w-full inline-flex justify-center items-center">
+            <span>Tools</span>
+            <ChevronDownIcon className={`h-4 w-4 ml-1 transition-transform duration-200 ${isMobileToolsOpen ? 'rotate-180' : ''}`} />
+          </button>
+          {isMobileToolsOpen && (
+            <div className="bg-gray-700">
+              <Link to="/tools/tool1" className="block p-4">Tool 1</Link>
+              <Link to="/tools/tool2" className="block p-4">Tool 2</Link>
+              <Link to="/tools/tool3" className="block p-4">Tool 3</Link>
+            </div>
+          )}
+        </div>
         <a href="https://github.com/ytkg" target="_blank" rel="noopener noreferrer" className="p-4">GitHub</a>
       </div>
     </>
