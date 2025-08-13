@@ -8,7 +8,7 @@ vi.mock('ruby-head-wasm-wasi', () => ({
 }));
 
 // We need to import the mocked version after the vi.mock call
-import { DefaultRubyVM } from 'ruby-head-wasm-wasi';
+import * as RubyWASM from 'ruby-head-wasm-wasi';
 
 describe('RubyRunner', () => {
   let mockVm: { eval: (code: string) => Promise<void>; print: (stream: 'stdout' | 'stderr', message: string) => void; };
@@ -32,7 +32,7 @@ describe('RubyRunner', () => {
     };
 
     // Make DefaultRubyVM return a promise that resolves to our mock VM
-    (DefaultRubyVM as vi.Mock).mockResolvedValue(mockVm);
+    (RubyWASM.DefaultRubyVM as vi.Mock).mockResolvedValue(mockVm);
   });
 
   it('should render the component correctly and initialize the VM', async () => {
@@ -96,7 +96,7 @@ describe('RubyRunner', () => {
   });
 
   it('should display an error if the VM fails to initialize', async () => {
-    (DefaultRubyVM as vi.Mock).mockRejectedValue(new Error('WASM Load Error'));
+    (RubyWASM.DefaultRubyVM as vi.Mock).mockRejectedValue(new Error('WASM Load Error'));
 
     render(<RubyRunner />);
 

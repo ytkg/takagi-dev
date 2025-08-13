@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { DefaultRubyVM } from 'ruby-head-wasm-wasi';
+import * as RubyWASM from 'ruby-head-wasm-wasi';
 
 interface RubyVM {
   eval: (code: string) => Promise<unknown>;
@@ -16,7 +16,7 @@ const RubyRunner: React.FC = () => {
     const initializeVM = async () => {
       setOutput('Initializing Ruby VM...\nPlease wait, it may take a moment.');
       try {
-        const vm = await DefaultRubyVM();
+        const vm = await RubyWASM.DefaultRubyVM();
         vmRef.current = vm;
         setIsInitializing(false);
         setOutput('Ruby VM is ready. Click "Run" to execute code.');
