@@ -60,7 +60,7 @@ export default function Navbar() {
                 case 'external':
                   return <a key={item.href} href={item.href} target="_blank" rel="noopener noreferrer" className="p-4 w-full text-center" onClick={toggle}>{item.text}</a>;
                 case 'dropdown':
-                  return <MobileDropdown key={item.text} item={item} />;
+                  return <MobileDropdown key={item.text} item={item} toggleMenu={toggle} />;
                 default:
                   return null;
               }

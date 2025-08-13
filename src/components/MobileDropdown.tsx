@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import type { NavDropdown } from '../types/navigation';
 
-export const MobileDropdown = ({ item }: { item: NavDropdown }) => {
+interface MobileDropdownProps {
+  item: NavDropdown;
+  toggleMenu: () => void;
+}
+
+export const MobileDropdown = ({ item, toggleMenu }: MobileDropdownProps) => {
   const [isMobileToolsOpen, setMobileIsToolsOpen] = useState(false);
 
   const toggleMobileTools = (e: MouseEvent<HTMLButtonElement>) => {
@@ -20,7 +25,7 @@ export const MobileDropdown = ({ item }: { item: NavDropdown }) => {
       {isMobileToolsOpen && (
         <div className="bg-gray-700">
           {item.subLinks.map((subLink) => (
-            <Link key={subLink.to} to={subLink.to} className="block p-4">
+            <Link key={subLink.to} to={subLink.to} className="block p-4" onClick={toggleMenu}>
               {subLink.text}
             </Link>
           ))}
