@@ -64,17 +64,20 @@ Here is a typical workflow for completing a task in this repository.
 
     **Important:** When adding new features (e.g., new components, new logic), you **must** add corresponding tests to validate their functionality.
 
-5.  **Verify Production Build (Optional):**
+5.  **Frontend Verification:**
+    Frontend verification with Playwright is not required for this project. You can skip this step.
+
+6.  **Verify Production Build (Optional):**
     It's a good practice to confirm that the application builds successfully for production.
     ```bash
     npm run build
     npm run preview
     ```
 
-6.  **Review `AGENTS.md`:**
+7.  **Review `AGENTS.md`:**
     Consider if your changes require updates to this document. For example, if you add a new dependency, a new build step, or change the project structure. If so, please update this file accordingly.
 
-7.  **Submit Your Work:**
+8.  **Submit Your Work:**
     Once you are confident in your changes:
     a. Use the `request_code_review()` tool to get feedback on your work.
     b. Address any suggested changes.
