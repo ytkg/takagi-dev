@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <div className="flex flex-col bg-white h-screen -mt-16 -mb-12">
       <div className="flex-grow flex flex-col justify-center items-center">
-        <pre className="lg:text-2xl md:text-xl sm:text-lg text-base font-mono text-center">
+        <pre className="lg:text-5xl md:text-4xl sm:text-3xl text-2xl font-mono text-center">
           {`┌ me ┐ ┌ web ┐
 takagi@ytkg.jp
 │     └ x ┘  │
