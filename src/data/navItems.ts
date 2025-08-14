@@ -10,6 +10,7 @@ export const navItems: NavItem[] = [
     subLinks: [
       { type: 'link', text: 'JSON Formatter', to: '/tools/json-formatter' },
       { type: 'link', text: 'Base64 Converter', to: '/tools/base64-converter' },
+      { type: 'link', text: 'Character Counter', to: '/tools/character-counter' },
     ],
   },
   { type: 'external', text: 'GitHub', href: 'https://github.com/ytkg' },

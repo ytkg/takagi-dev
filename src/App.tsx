@@ -6,6 +6,7 @@ import About from './pages/About';
 import Products from './pages/Products';
 import JsonFormatter from './pages/JsonFormatter';
 import Base64Converter from './pages/Base64Converter';
+import CharacterCounter from './pages/CharacterCounter';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/tools/json-formatter" element={<JsonFormatter />} />
           <Route path="/tools/base64-converter" element={<Base64Converter />} />
+          <Route path="/tools/character-counter" element={<CharacterCounter />} />
         </Routes>
       </main>
       <Footer />
