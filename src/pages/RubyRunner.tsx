@@ -1,10 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as RubyWASM from 'ruby-head-wasm-wasi';
-import Editor from 'react-simple-code-editor';
-import { highlight, languages } from 'prismjs';
-import 'prismjs/components/prism-clike';
-import 'prismjs/components/prism-ruby';
-import 'prismjs/themes/prism-tomorrow.css';
 
 interface RubyVM {
   eval: (code: string) => Promise<unknown>;
@@ -16,7 +11,22 @@ const RubyRunner: React.FC = () => {
   const [output, setOutput] = useState('');
   const [isInitializing, setIsInitializing] = useState(true);
   const [vmReady, setVmReady] = useState(false);
+  const [lineNumbers, setLineNumbers] = useState('1');
   const vmRef = useRef<RubyVM | null>(null);
+  const lineNumbersRef = useRef<HTMLTextAreaElement | null>(null);
+  const codeEditorRef = useRef<HTMLTextAreaElement | null>(null);
+
+  useEffect(() => {
+    const lineCount = code.split('\n').length;
+    const numbers = Array.from({ length: lineCount }, (_, i) => i + 1).join('\n');
+    setLineNumbers(numbers);
+  }, [code]);
+
+  const handleScroll = () => {
+    if (lineNumbersRef.current && codeEditorRef.current) {
+      lineNumbersRef.current.scrollTop = codeEditorRef.current.scrollTop;
+    }
+  };
 
   useEffect(() => {
     const initializeVM = async () => {
@@ -46,7 +56,6 @@ const RubyRunner: React.FC = () => {
     setOutput('Running...');
     try {
       let capturedOutput = '';
-      // Override the print function to capture stdout and stderr
       vmRef.current.print = (_stream: 'stdout' | 'stderr', message: string) => {
         capturedOutput += message;
       };
@@ -69,19 +78,23 @@ const RubyRunner: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <h2 className="text-xl font-semibold mb-2">Code Input</h2>
-          <div className="editor-container w-full h-64 border rounded-md bg-gray-900 text-green-400 overflow-auto relative">
-            <Editor
+          <div className="flex w-full h-64 font-mono border rounded-md bg-gray-900">
+            <textarea
+              ref={lineNumbersRef}
+              className="w-12 p-2 text-right text-gray-500 bg-transparent border-r border-gray-700 resize-none focus:outline-none"
+              value={lineNumbers}
+              readOnly
+            />
+            <textarea
+              ref={codeEditorRef}
+              aria-label="Code Editor"
+              className="flex-1 p-2 text-green-400 bg-transparent resize-none focus:outline-none"
               value={code}
-              onValueChange={code => setCode(code)}
-              highlight={code => highlight(code, languages.ruby, 'ruby')}
-              padding={10}
-              style={{
-                fontFamily: '"Fira code", "Fira Mono", monospace',
-                fontSize: 14,
-                outline: 'none',
-                border: 'none',
-              }}
-              className="editor"
+              onChange={(e) => setCode(e.target.value)}
+              onScroll={handleScroll}
+              spellCheck="false"
+              autoCapitalize="off"
+              autoCorrect="off"
             />
           </div>
           <button

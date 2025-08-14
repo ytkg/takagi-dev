@@ -64,7 +64,7 @@ describe('RubyRunner', () => {
     });
 
     const runButton = screen.getByRole('button', { name: /run/i });
-    const textarea = screen.getByRole('textbox');
+    const textarea = screen.getByRole('textbox', { name: /code editor/i });
 
     const testCode = 'puts "Hello from test"';
     fireEvent.change(textarea, { target: { value: testCode } });
