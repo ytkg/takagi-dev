@@ -10,7 +10,7 @@ describe('CharacterCounter', () => {
 
   test('initial counts are zero', () => {
     render(<CharacterCounter />);
-    expect(screen.getByText('Characters')).toBeInTheDocument();
+    expect(screen.getByText('Characters (no newlines)')).toBeInTheDocument();
     expect(screen.getByText('Words')).toBeInTheDocument();
     // Both counts should be 0 initially
     const initialCounts = screen.getAllByText('0');
@@ -47,6 +47,17 @@ describe('CharacterCounter', () => {
     // Characters: '  Hello world  ' -> 15
     expect(screen.getByText('15')).toBeInTheDocument();
     // Words: '  Hello world  ' -> 2
+    expect(screen.getByText('2')).toBeInTheDocument();
+  });
+
+  test('ignores newline characters in character count', () => {
+    render(<CharacterCounter />);
+    const inputArea = screen.getByPlaceholderText('Enter text here...');
+    fireEvent.change(inputArea, { target: { value: 'hello\nworld' } });
+
+    // Characters: 'hello\nworld' -> length is 11, but without newline it's 10
+    expect(screen.getByText('10')).toBeInTheDocument();
+    // Words: 'hello\nworld' -> 2 words
     expect(screen.getByText('2')).toBeInTheDocument();
   });
 
