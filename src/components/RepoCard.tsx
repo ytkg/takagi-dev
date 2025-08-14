@@ -1,5 +1,5 @@
 import { StarIcon, ShareIcon } from '@heroicons/react/24/solid';
-import { Repository } from '../types';
+import type { Repository } from '../types';
 
 interface RepoCardProps {
   repo: Repository;
