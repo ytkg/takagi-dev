@@ -11,7 +11,7 @@ export default function Home() {
   useInfiniteScroll(scrollerRef, isPaused);
 
   return (
-    <div className="flex flex-col bg-white h-full">
+    <div className="flex flex-col bg-white flex-grow">
       <div className="flex-grow flex flex-col justify-center items-center">
         <h1 className="lg:text-8xl md:text-7xl sm:text-6xl text-4xl font-black">Hello World!</h1>
       </div>
