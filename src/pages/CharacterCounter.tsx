@@ -16,6 +16,7 @@ export default function CharacterCounter() {
       <h1 className="text-2xl font-bold mb-4">Character & Word Counter</h1>
       <div className="grid grid-cols-1 gap-4">
         <div>
+          <h2 className="text-lg font-semibold mb-2">Input</h2>
           <textarea
             className="w-full h-64 p-2 border rounded-md font-mono text-sm bg-gray-50 dark:bg-gray-800 dark:text-white"
             value={input}
