@@ -14,7 +14,7 @@ export default function RepoCard({ repo }: RepoCardProps) {
             {repo.name}
           </a>
         </h3>
-        <p className="text-gray-700 mb-4">{repo.description}</p>
+        {repo.description && <p className="text-gray-700 mb-4">{repo.description}</p>}
       </div>
       <div className="flex items-center text-sm text-gray-500">
         <span className="mr-4 flex items-center">
@@ -25,7 +25,7 @@ export default function RepoCard({ repo }: RepoCardProps) {
           <ShareIcon className="h-4 w-4 mr-1" />
           {repo.forks_count}
         </span>
-        <span className="flex items-center">{repo.language}</span>
+        {repo.language && <span className="flex items-center">{repo.language}</span>}
       </div>
     </div>
   );
