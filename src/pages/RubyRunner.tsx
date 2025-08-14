@@ -1,10 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import * as RubyWASM from 'ruby-head-wasm-wasi';
-
-interface RubyVM {
-  eval: (code: string) => Promise<unknown>;
-  print: (stream: 'stdout' | 'stderr', message: string) => void;
-}
 
 const RubyRunner: React.FC = () => {
   const [code, setCode] = useState('puts "Hello, World!"');
@@ -31,10 +25,15 @@ const RubyRunner: React.FC = () => {
   useEffect(() => {
     const initializeVM = async () => {
       setOutput('Initializing Ruby VM...\nPlease wait, it may take a moment.');
+      if (!window.RubyWASM) {
+        setOutput('Error: Ruby WASM library is not loaded.');
+        setIsInitializing(false);
+        return;
+      }
       try {
         const response = await fetch("https://cdn.jsdelivr.net/npm/ruby-head-wasm-wasi@2.3.0/dist/ruby.wasm");
         const buffer = await response.arrayBuffer();
-        const vm = await RubyWASM.DefaultRubyVM(buffer);
+        const { vm } = await window.RubyWASM.DefaultRubyVM(buffer);
         vmRef.current = vm;
         setVmReady(true);
         setOutput('Ruby VM is ready. Click "Run" to execute code.');

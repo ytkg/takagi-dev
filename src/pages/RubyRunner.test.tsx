@@ -2,20 +2,31 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import RubyRunner from './RubyRunner';
 
-// Mock the 'ruby-head-wasm-wasi' module
-vi.mock('ruby-head-wasm-wasi', () => ({
-  DefaultRubyVM: vi.fn(),
-}));
-
-// We need to import the mocked version after the vi.mock call
-import * as RubyWASM from 'ruby-head-wasm-wasi';
-
 describe('RubyRunner', () => {
   let mockVm: { eval: (code: string) => Promise<void>; print: (stream: 'stdout' | 'stderr', message: string) => void; };
+  let mockRubyWASM: RubyWASM;
 
   beforeEach(() => {
     // Reset mocks before each test
     vi.clearAllMocks();
+
+    mockVm = {
+      eval: vi.fn().mockImplementation(async (code: string) => {
+        if (code.includes('Hello from test')) {
+          mockVm.print('stdout', 'Hello from test');
+        } else if (code.includes('error')) {
+          throw new Error('Runtime error');
+        }
+      }),
+      print: vi.fn(),
+    };
+
+    mockRubyWASM = {
+      DefaultRubyVM: vi.fn().mockResolvedValue({ vm: mockVm }),
+    };
+
+    // Assign the mock to the window object
+    window.RubyWASM = mockRubyWASM;
 
     // Mock fetch
     global.fetch = vi.fn(() =>
@@ -23,23 +34,6 @@ describe('RubyRunner', () => {
         arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
       } as Response)
     );
-
-    // Setup the mock VM object that will be returned by DefaultRubyVM
-    mockVm = {
-      eval: vi.fn().mockImplementation(async (code: string) => {
-        // Simulate running the code by calling the print function
-        // This simulates the behavior of the actual VM
-        if (code.includes('Hello from test')) {
-            mockVm.print('stdout', 'Hello from test');
-        } else if (code.includes('error')) {
-            throw new Error('Runtime error');
-        }
-      }),
-      print: vi.fn(),
-    };
-
-    // Make DefaultRubyVM return a promise that resolves to our mock VM
-    (RubyWASM.DefaultRubyVM as vi.Mock).mockResolvedValue(mockVm);
   });
 
   it('should render the component correctly and initialize the VM', async () => {
@@ -106,15 +100,15 @@ describe('RubyRunner', () => {
   });
 
   it('should display an error and keep button disabled if VM fails to initialize', async () => {
-    // Make fetch reject
-    (global.fetch as vi.Mock).mockRejectedValue(new Error('Network error'));
+    // Make the mock VM initializer reject
+    mockRubyWASM.DefaultRubyVM = vi.fn().mockRejectedValue(new Error('WASM Load Error'));
 
     render(<RubyRunner />);
 
     // Wait for the error message to be displayed
     await waitFor(() => {
         expect(screen.getByText(/error: failed to initialize ruby vm/i)).toBeInTheDocument();
-        expect(screen.getByText(/network error/i)).toBeInTheDocument();
+        expect(screen.getByText(/wasm load error/i)).toBeInTheDocument();
     });
 
     // The button should now say "Run" but be disabled
