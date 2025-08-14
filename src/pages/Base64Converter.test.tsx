@@ -58,4 +58,9 @@ describe('Base64Converter', () => {
     fireEvent.click(screen.getByText('Decode'));
     expect(screen.getByText('こんにちは世界')).toBeInTheDocument();
   });
+
+  test('matches the snapshot', () => {
+    const { container } = render(<Base64Converter />);
+    expect(container).toMatchSnapshot();
+  });
 });

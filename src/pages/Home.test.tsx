@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Home from './Home';
 import { REPOSITORIES } from '../data/repositories';
 
@@ -37,5 +38,14 @@ describe('Home page', () => {
     // Check that the repo card container is a sibling to the heading's container
     const repoSectionContainer = firstRepoCard.closest('.w-full.overflow-x-auto');
     expect(headingContainer?.parentElement).toBe(repoSectionContainer?.parentElement);
+  });
+
+  it('matches the snapshot', () => {
+    const { container } = render(
+      <Router>
+        <Home />
+      </Router>
+    );
+    expect(container).toMatchSnapshot();
   });
 });
