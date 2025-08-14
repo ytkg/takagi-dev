@@ -1,10 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import Tool4 from './Tool4';
+import JsonFormatter from './JsonFormatter';
 import '@testing-library/jest-dom';
 
-describe('Tool4 JSON Formatter', () => {
+describe('JsonFormatter', () => {
   test('renders the component', () => {
-    render(<Tool4 />);
+    render(<JsonFormatter />);
     expect(screen.getByText('JSON Formatter')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Paste your JSON here...')).toBeInTheDocument();
     expect(screen.getByText('Format JSON')).toBeInTheDocument();
@@ -12,7 +12,7 @@ describe('Tool4 JSON Formatter', () => {
   });
 
   test('formats valid JSON correctly', () => {
-    render(<Tool4 />);
+    render(<JsonFormatter />);
     const inputArea = screen.getByPlaceholderText('Paste your JSON here...');
     const formatButton = screen.getByText('Format JSON');
 
@@ -28,7 +28,7 @@ describe('Tool4 JSON Formatter', () => {
   });
 
   test('shows an error for invalid JSON', () => {
-    render(<Tool4 />);
+    render(<JsonFormatter />);
     const inputArea = screen.getByPlaceholderText('Paste your JSON here...');
     const formatButton = screen.getByText('Format JSON');
 
@@ -41,7 +41,7 @@ describe('Tool4 JSON Formatter', () => {
   });
 
   test('clears input, output, and error when clear button is clicked', () => {
-    render(<Tool4 />);
+    render(<JsonFormatter />);
     const inputArea = screen.getByPlaceholderText('Paste your JSON here...') as HTMLTextAreaElement;
     const formatButton = screen.getByText('Format JSON');
     const clearButton = screen.getByText('Clear');

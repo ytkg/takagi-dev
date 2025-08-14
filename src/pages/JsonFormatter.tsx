@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Tool4: React.FC = () => {
+const JsonFormatter: React.FC = () => {
   const [inputJson, setInputJson] = useState('');
   const [outputJson, setOutputJson] = useState('');
   const [error, setError] = useState('');
@@ -65,4 +65,4 @@ const Tool4: React.FC = () => {
   );
 };
 
-export default Tool4;
+export default JsonFormatter;

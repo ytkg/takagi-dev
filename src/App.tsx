@@ -6,7 +6,7 @@ import About from './pages/About';
 import Tool1 from './pages/Tool1';
 import Tool2 from './pages/Tool2';
 import Tool3 from './pages/Tool3';
-import Tool4 from './pages/Tool4';
+import JsonFormatter from './pages/JsonFormatter';
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
           <Route path="/tools/tool1" element={<Tool1 />} />
           <Route path="/tools/tool2" element={<Tool2 />} />
           <Route path="/tools/tool3" element={<Tool3 />} />
-          <Route path="/tools/tool4" element={<Tool4 />} />
+          <Route path="/tools/json-formatter" element={<JsonFormatter />} />
         </Routes>
       </main>
       <Footer />
