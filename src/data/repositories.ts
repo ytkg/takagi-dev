@@ -1,4 +1,4 @@
-import { Repository } from '../types';
+import type { Repository } from '../types';
 
 export const REPOSITORIES: Repository[] = [
   {
