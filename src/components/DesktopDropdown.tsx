@@ -13,7 +13,7 @@ export const DesktopDropdown = ({ item }: { item: NavDropdown }) => {
         <ChevronDownIcon className="h-4 w-4 ml-1" />
       </button>
       {isToolsOpen && (
-        <div className="absolute right-0 w-40 mt-0 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg">
+        <div className="absolute right-0 w-max mt-0 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg">
           <div className="py-1">
             {item.subLinks.map((subLink) => (
               <Link key={subLink.to} to={subLink.to} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
