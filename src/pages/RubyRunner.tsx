@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const RubyRunner: React.FC = () => {
   const [code, setCode] = useState('puts "Hello, World!"');
-  const [output, setOutput] = useState('');
+  const [output, setOutput] = useState('Initializing...');
   const [isInitializing, setIsInitializing] = useState(true);
   const [vmReady, setVmReady] = useState(false);
   const [lineNumbers, setLineNumbers] = useState('1');
@@ -24,13 +24,15 @@ const RubyRunner: React.FC = () => {
 
   useEffect(() => {
     const initializeVM = async () => {
-      setOutput('Initializing Ruby VM...\nPlease wait, it may take a moment.');
+      console.log('Ruby WASM library loaded, initializing VM.');
       if (!window.RubyWASM) {
-        // This should not happen if the script loads correctly, but it's a good safeguard.
-        setOutput('Error: Ruby WASM library is not loaded.');
+        const errorMsg = 'Error: Ruby WASM library is not loaded.';
+        setOutput(errorMsg);
+        console.error(errorMsg);
         setIsInitializing(false);
         return;
       }
+
       try {
         const response = await fetch("https://cdn.jsdelivr.net/npm/ruby-head-wasm-wasi@2.3.0/dist/ruby.wasm");
         const buffer = await response.arrayBuffer();
@@ -39,9 +41,9 @@ const RubyRunner: React.FC = () => {
         setVmReady(true);
         setOutput('Ruby VM is ready. Click "Run" to execute code.');
       } catch (err) {
+        const errorMsg = err instanceof Error ? err.message : String(err);
+        setOutput(`Error: Failed to initialize Ruby VM.\n${errorMsg}`);
         console.error('Failed to initialize Ruby VM:', err);
-        const errorMessage = err instanceof Error ? err.message : String(err);
-        setOutput('Error: Failed to initialize Ruby VM.\n' + errorMessage);
       } finally {
         setIsInitializing(false);
       }
@@ -66,16 +68,16 @@ const RubyRunner: React.FC = () => {
     setOutput('Running...');
     try {
       let capturedOutput = '';
-      vmRef.current.print = (_stream: 'stdout' | 'stderr', message: string) => {
+      vmRef.current.print = (_stream, message) => {
         capturedOutput += message;
       };
 
       await vmRef.current.eval(code);
       setOutput(capturedOutput || '(No output)');
     } catch (err) {
-      console.error('Error running Ruby code:', err);
       const errorMessage = err instanceof Error ? err.message : String(err);
-      setOutput('Error:\n' + errorMessage);
+      setOutput(`Error:\n${errorMessage}`);
+      console.error('Error running Ruby code:', err);
     }
   };
 
@@ -97,7 +99,6 @@ const RubyRunner: React.FC = () => {
             />
             <textarea
               ref={codeEditorRef}
-              aria-label="Code Editor"
               className="flex-1 p-2 text-green-400 bg-transparent resize-none focus:outline-none"
               value={code}
               onChange={(e) => setCode(e.target.value)}
@@ -105,6 +106,7 @@ const RubyRunner: React.FC = () => {
               spellCheck="false"
               autoCapitalize="off"
               autoCorrect="off"
+              aria-label="Code Editor"
             />
           </div>
           <button

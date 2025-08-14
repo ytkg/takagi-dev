@@ -7,7 +7,6 @@ describe('RubyRunner', () => {
   let mockRubyWASM: RubyWASM;
 
   beforeEach(() => {
-    // Reset mocks before each test
     vi.clearAllMocks();
 
     mockVm = {
@@ -25,10 +24,8 @@ describe('RubyRunner', () => {
       DefaultRubyVM: vi.fn().mockResolvedValue({ vm: mockVm }),
     };
 
-    // Assign the mock to the window object
     window.RubyWASM = mockRubyWASM;
 
-    // Mock fetch
     global.fetch = vi.fn(() =>
       Promise.resolve({
         arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
@@ -38,26 +35,22 @@ describe('RubyRunner', () => {
 
   it('should render the component correctly and initialize the VM', async () => {
     render(<RubyRunner />);
-
-    // Manually dispatch the event to trigger initialization
     window.dispatchEvent(new Event('ruby-wasm-loaded'));
 
     expect(screen.getByText('Ruby Runner')).toBeInTheDocument();
     expect(screen.getByText('Code Input')).toBeInTheDocument();
     expect(screen.getByText('Output')).toBeInTheDocument();
 
-    // Button is disabled during initialization
     const button = screen.getByRole('button', { name: /initializing/i });
     expect(button).toBeDisabled();
 
-    // After successful initialization, button is enabled and text changes to "Run"
     await waitFor(() => {
         const runButton = screen.getByRole('button', { name: /run/i });
         expect(runButton).toBeEnabled();
         expect(screen.getByText('Ruby VM is ready. Click "Run" to execute code.')).toBeInTheDocument();
     });
 
-    expect(screen.getByDisplayValue('puts "Hello, World!"')).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: /code editor/i })).toHaveValue('puts "Hello, World!"');
   });
 
   it('should run code and display output when the run button is clicked', async () => {
@@ -75,48 +68,28 @@ describe('RubyRunner', () => {
     fireEvent.change(textarea, { target: { value: testCode } });
     fireEvent.click(runButton);
 
-    // The component re-assigns the print function on the vm object.
-    // We need to capture that new function and call it to simulate output.
     await waitFor(() => {
         expect(mockVm.eval).toHaveBeenCalledWith(testCode);
     });
 
-    // The component's `runCode` function overrides `vm.print`.
-    // The `eval` mock calls the *original* mock `print` function, which does nothing.
-    // This is a classic problem with mocking.
-    // Let's adjust the test to check the final output in the DOM,
-    // which is the most important user-facing result.
-    // To do this, we need to make our mock `eval` call the *currently assigned* print function.
-
-    // A better way is to make the mock `eval` aware of the reassignment.
-    // Let's change the mock implementation to be more robust.
-    mockVm.eval = vi.fn().mockImplementation(async () => {
-        // In the component, vm.print is reassigned. So we call the *current* vm.print
-        mockVm.print('stdout', 'Hello from test');
-    });
-
-    fireEvent.click(runButton);
-
     await waitFor(() => {
+        // The output is inside a <code> tag
         const outputElement = screen.getByRole('code');
-        expect(outputElement.textContent).toBe('Hello from test');
+        expect(outputElement).toHaveTextContent('Hello from test');
     });
   });
 
   it('should display an error and keep button disabled if VM fails to initialize', async () => {
-    // Make the mock VM initializer reject
     mockRubyWASM.DefaultRubyVM = vi.fn().mockRejectedValue(new Error('WASM Load Error'));
 
     render(<RubyRunner />);
     window.dispatchEvent(new Event('ruby-wasm-loaded'));
 
-    // Wait for the error message to be displayed
     await waitFor(() => {
         expect(screen.getByText(/error: failed to initialize ruby vm/i)).toBeInTheDocument();
         expect(screen.getByText(/wasm load error/i)).toBeInTheDocument();
     });
 
-    // The button should now say "Run" but be disabled
     const runButton = screen.getByRole('button', { name: /run/i });
     expect(runButton).toBeDisabled();
   });
