@@ -1,0 +1,20 @@
+name: Create Issue
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create_issue:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Create issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh issue create \
+            --title "新しいツールの開発" \
+            --body "新しいツールを開発してください。メニュー「Tools」にない機能であればなんでも良いです" \
+            --label "jules"
