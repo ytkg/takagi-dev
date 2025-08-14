@@ -42,4 +42,20 @@ describe('Base64Converter', () => {
     expect(screen.queryByText('aGVsbG8=')).not.toBeInTheDocument();
     expect(inputArea).toHaveValue('');
   });
+
+  test('handles Japanese characters correctly', () => {
+    render(<Base64Converter />);
+    const inputArea = screen.getByPlaceholderText('Enter string to encode/decode...');
+
+    // Test encoding of Japanese string
+    fireEvent.change(inputArea, { target: { value: 'こんにちは世界' } });
+    fireEvent.click(screen.getByText('Encode'));
+    const encodedText = '44GT44KT44Gr44Gh44Gv5LiW55WM';
+    expect(screen.getByText(encodedText)).toBeInTheDocument();
+
+    // Test decoding of the same string
+    fireEvent.change(inputArea, { target: { value: encodedText } });
+    fireEvent.click(screen.getByText('Decode'));
+    expect(screen.getByText('こんにちは世界')).toBeInTheDocument();
+  });
 });
