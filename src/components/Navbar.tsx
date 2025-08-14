@@ -12,44 +12,6 @@ export default function Navbar() {
     setIsOpen(!isOpen);
   };
 
-  const renderNavItems = (isMobile: boolean) => {
-    return navItems.map((item) => {
-      switch (item.type) {
-        case 'link':
-          return (
-            <Link
-              key={item.to}
-              to={item.to}
-              className={`p-4 ${isMobile ? 'w-full text-center' : ''}`}
-              onClick={isMobile ? toggle : undefined}
-            >
-              {item.text}
-            </Link>
-          );
-        case 'external':
-          return (
-            <a
-              key={item.href}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`p-4 ${isMobile ? 'w-full text-center' : ''}`}
-              onClick={isMobile ? toggle : undefined}
-            >
-              {item.text}
-            </a>
-          );
-        case 'dropdown':
-          if (isMobile) {
-            return <MobileDropdown key={item.text} item={item} toggleMenu={toggle} />;
-          }
-          return <DesktopDropdown key={item.text} item={item} />;
-        default:
-          return null;
-      }
-    });
-  };
-
   return (
     <>
       <nav className="flex justify-between items-center h-16 bg-white text-black sticky top-0 z-50 shadow-sm font-mono" role="navigation">
@@ -58,7 +20,18 @@ export default function Navbar() {
           <Bars3Icon className="h-6 w-6" />
         </div>
         <div className="pr-4 md:block hidden">
-          {renderNavItems(false)}
+          {navItems.map((item) => {
+            switch (item.type) {
+              case 'link':
+                return <Link key={item.to} to={item.to} className="p-4">{item.text}</Link>;
+              case 'external':
+                return <a key={item.href} href={item.href} target="_blank" rel="noopener noreferrer" className="p-4">{item.text}</a>;
+              case 'dropdown':
+                return <DesktopDropdown key={item.text} item={item} />;
+              default:
+                return null;
+            }
+          })}
         </div>
       </nav>
 
@@ -80,7 +53,18 @@ export default function Navbar() {
           </button>
         </div>
         <div className="flex flex-col items-center">
-          {renderNavItems(true)}
+          {navItems.map((item) => {
+              switch (item.type) {
+                case 'link':
+                  return <Link key={item.to} to={item.to} className="p-4 w-full text-center" onClick={toggle}>{item.text}</Link>;
+                case 'external':
+                  return <a key={item.href} href={item.href} target="_blank" rel="noopener noreferrer" className="p-4 w-full text-center" onClick={toggle}>{item.text}</a>;
+                case 'dropdown':
+                  return <MobileDropdown key={item.text} item={item} toggleMenu={toggle} />;
+                default:
+                  return null;
+              }
+            })}
         </div>
       </div>
     </>

@@ -21,7 +21,7 @@ export default function Home() {
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
-        <div className="flex space-x-8 px-8">
+        <div className="flex space-x-8">
           {extendedRepos.map((repo, index) => (
             <RepoCard key={`${repo.name}-${index}`} repo={repo} />
           ))}
