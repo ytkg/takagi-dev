@@ -11,8 +11,8 @@ export default function Home() {
   useInfiniteScroll(scrollerRef, isPaused);
 
   return (
-    <div className="flex flex-col bg-white">
-      <div className="flex-grow flex flex-col justify-center items-center py-32">
+    <div className="flex flex-col bg-white h-full">
+      <div className="flex-grow flex flex-col justify-center items-center">
         <h1 className="lg:text-8xl md:text-7xl sm:text-6xl text-4xl font-black">Hello World!</h1>
       </div>
       <div
@@ -21,7 +21,7 @@ export default function Home() {
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
-        <div className="flex space-x-8">
+        <div className="flex space-x-8 px-8">
           {extendedRepos.map((repo, index) => (
             <RepoCard key={`${repo.name}-${index}`} repo={repo} />
           ))}
