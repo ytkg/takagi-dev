@@ -9,6 +9,9 @@ import pluginReactRefresh from "eslint-plugin-react-refresh";
 export default [
   { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
   {
+    ignores: ["dist/**"]
+  },
+  {
     settings: {
       react: {
         version: "detect"
