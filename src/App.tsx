@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Products from './pages/Products';
@@ -11,18 +12,22 @@ import Base64Converter from './pages/Base64Converter';
 
 function App() {
   return (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/tools/tool1" element={<Tool1 />} />
-        <Route path="/tools/tool2" element={<Tool2 />} />
-        <Route path="/tools/tool3" element={<Tool3 />} />
-        <Route path="/tools/json-formatter" element={<JsonFormatter />} />
-        <Route path="/tools/base64-converter" element={<Base64Converter />} />
-      </Routes>
-    </Layout>
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/tools/tool1" element={<Tool1 />} />
+          <Route path="/tools/tool2" element={<Tool2 />} />
+          <Route path="/tools/tool3" element={<Tool3 />} />
+          <Route path="/tools/json-formatter" element={<JsonFormatter />} />
+          <Route path="/tools/base64-converter" element={<Base64Converter />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
   );
 }
 

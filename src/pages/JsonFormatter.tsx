@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function JsonFormatter() {
+const JsonFormatter: React.FC = () => {
   const [inputJson, setInputJson] = useState('');
   const [outputJson, setOutputJson] = useState('');
   const [error, setError] = useState('');
@@ -63,4 +63,6 @@ export default function JsonFormatter() {
       </div>
     </div>
   );
-}
+};
+
+export default JsonFormatter;
