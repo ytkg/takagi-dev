@@ -26,6 +26,7 @@ const RubyRunner: React.FC = () => {
     const initializeVM = async () => {
       setOutput('Initializing Ruby VM...\nPlease wait, it may take a moment.');
       if (!window.RubyWASM) {
+        // This should not happen if the script loads correctly, but it's a good safeguard.
         setOutput('Error: Ruby WASM library is not loaded.');
         setIsInitializing(false);
         return;
@@ -46,7 +47,15 @@ const RubyRunner: React.FC = () => {
       }
     };
 
-    initializeVM();
+    if (window.RubyWASM) {
+      initializeVM();
+    } else {
+      window.addEventListener('ruby-wasm-loaded', initializeVM);
+    }
+
+    return () => {
+      window.removeEventListener('ruby-wasm-loaded', initializeVM);
+    };
   }, []);
 
   const runCode = async () => {

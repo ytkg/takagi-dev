@@ -39,6 +39,9 @@ describe('RubyRunner', () => {
   it('should render the component correctly and initialize the VM', async () => {
     render(<RubyRunner />);
 
+    // Manually dispatch the event to trigger initialization
+    window.dispatchEvent(new Event('ruby-wasm-loaded'));
+
     expect(screen.getByText('Ruby Runner')).toBeInTheDocument();
     expect(screen.getByText('Code Input')).toBeInTheDocument();
     expect(screen.getByText('Output')).toBeInTheDocument();
@@ -59,6 +62,7 @@ describe('RubyRunner', () => {
 
   it('should run code and display output when the run button is clicked', async () => {
     render(<RubyRunner />);
+    window.dispatchEvent(new Event('ruby-wasm-loaded'));
 
     await waitFor(() => {
       expect(screen.getByRole('button', { name: /run/i })).toBeEnabled();
@@ -104,6 +108,7 @@ describe('RubyRunner', () => {
     mockRubyWASM.DefaultRubyVM = vi.fn().mockRejectedValue(new Error('WASM Load Error'));
 
     render(<RubyRunner />);
+    window.dispatchEvent(new Event('ruby-wasm-loaded'));
 
     // Wait for the error message to be displayed
     await waitFor(() => {
@@ -120,6 +125,7 @@ describe('RubyRunner', () => {
     mockVm.eval.mockRejectedValue(new Error('Syntax Error'));
 
     render(<RubyRunner />);
+    window.dispatchEvent(new Event('ruby-wasm-loaded'));
 
     await waitFor(() => {
         expect(screen.getByRole('button', { name: /run/i })).toBeEnabled();
