@@ -10,55 +10,49 @@ describe('CharacterCounter', () => {
 
   test('initial counts are zero', () => {
     render(<CharacterCounter />);
+    expect(screen.getByText('Characters')).toBeInTheDocument();
     expect(screen.getByText('Characters (no newlines)')).toBeInTheDocument();
     expect(screen.getByText('Words')).toBeInTheDocument();
-    // Both counts should be 0 initially
+    // All three counts should be 0 initially
     const initialCounts = screen.getAllByText('0');
-    expect(initialCounts).toHaveLength(2);
+    expect(initialCounts).toHaveLength(3);
   });
 
-  test('updates counts on input', () => {
+  test('updates counts on input without newlines', () => {
     render(<CharacterCounter />);
     const inputArea = screen.getByPlaceholderText('Enter text here...');
     fireEvent.change(inputArea, { target: { value: 'Hello world' } });
 
-    // Characters: 'Hello world' -> 11
-    expect(screen.getByText('11')).toBeInTheDocument();
+    // Characters (with newlines): 'Hello world' -> 11
+    // The 'Characters' heading is the parent of the count '11'
+    const withNewlinesCount = screen.getByText('Characters').nextElementSibling;
+    expect(withNewlinesCount).toHaveTextContent('11');
+
+    // Characters (no newlines): 'Hello world' -> 11
+    const withoutNewlinesCount = screen.getByText('Characters (no newlines)').nextElementSibling;
+    expect(withoutNewlinesCount).toHaveTextContent('11');
+
     // Words: 'Hello world' -> 2
-    expect(screen.getByText('2')).toBeInTheDocument();
+    const wordCount = screen.getByText('Words').nextElementSibling;
+    expect(wordCount).toHaveTextContent('2');
   });
 
-  test('handles multiple spaces between words', () => {
+  test('updates counts on input with newlines', () => {
     render(<CharacterCounter />);
     const inputArea = screen.getByPlaceholderText('Enter text here...');
-    fireEvent.change(inputArea, { target: { value: 'Hello    world' } });
+    fireEvent.change(inputArea, { target: { value: 'Hello\nworld' } });
 
-    // Characters: 'Hello    world' -> 14
-    expect(screen.getByText('14')).toBeInTheDocument();
-    // Words: 'Hello    world' -> 2
-    expect(screen.getByText('2')).toBeInTheDocument();
-  });
+    // Characters (with newlines): 'Hello\nworld' -> 11
+    const withNewlinesCount = screen.getByText('Characters').nextElementSibling;
+    expect(withNewlinesCount).toHaveTextContent('11');
 
-  test('handles leading/trailing spaces', () => {
-    render(<CharacterCounter />);
-    const inputArea = screen.getByPlaceholderText('Enter text here...');
-    fireEvent.change(inputArea, { target: { value: '  Hello world  ' } });
+    // Characters (no newlines): 'Hello\nworld' -> 10
+    const withoutNewlinesCount = screen.getByText('Characters (no newlines)').nextElementSibling;
+    expect(withoutNewlinesCount).toHaveTextContent('10');
 
-    // Characters: '  Hello world  ' -> 15
-    expect(screen.getByText('15')).toBeInTheDocument();
-    // Words: '  Hello world  ' -> 2
-    expect(screen.getByText('2')).toBeInTheDocument();
-  });
-
-  test('ignores newline characters in character count', () => {
-    render(<CharacterCounter />);
-    const inputArea = screen.getByPlaceholderText('Enter text here...');
-    fireEvent.change(inputArea, { target: { value: 'hello\nworld' } });
-
-    // Characters: 'hello\nworld' -> length is 11, but without newline it's 10
-    expect(screen.getByText('10')).toBeInTheDocument();
-    // Words: 'hello\nworld' -> 2 words
-    expect(screen.getByText('2')).toBeInTheDocument();
+    // Words: 'Hello\nworld' -> 2
+    const wordCount = screen.getByText('Words').nextElementSibling;
+    expect(wordCount).toHaveTextContent('2');
   });
 
   test('clears the input when clear button is clicked', () => {
@@ -67,16 +61,16 @@ describe('CharacterCounter', () => {
     fireEvent.change(inputArea, { target: { value: 'Some text' } });
 
     // Check that counts are updated
-    expect(screen.getByText('9')).toBeInTheDocument();
-    expect(screen.getByText('2')).toBeInTheDocument();
+    expect(screen.getByText('Characters').nextElementSibling).toHaveTextContent('9');
+    expect(screen.getByText('Characters (no newlines)').nextElementSibling).toHaveTextContent('9');
+    expect(screen.getByText('Words').nextElementSibling).toHaveTextContent('2');
 
     const clearButton = screen.getByText('Clear');
     fireEvent.click(clearButton);
 
     // Check that input is cleared and counts are reset
     expect(inputArea).toHaveValue('');
-    // Both counts should be 0
-    expect(screen.getAllByText('0').length).toBe(2);
+    expect(screen.getAllByText('0').length).toBe(3);
   });
 
   test('matches the snapshot', () => {

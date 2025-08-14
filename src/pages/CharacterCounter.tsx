@@ -7,7 +7,8 @@ export default function CharacterCounter() {
     setInput('');
   };
 
-  const charCount = input.replace(/\n/g, '').length;
+  const charCountWithoutNewlines = input.replace(/\n/g, '').length;
+  const charCountWithNewlines = input.length;
   const wordCount = input.trim().split(/\s+/).filter(Boolean).length;
 
   return (
@@ -24,8 +25,12 @@ export default function CharacterCounter() {
         </div>
         <div className="flex space-x-4">
             <div className="p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
+                <h2 className="text-lg font-semibold">Characters</h2>
+                <p className="text-2xl font-bold dark:text-white">{charCountWithNewlines}</p>
+            </div>
+            <div className="p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
                 <h2 className="text-lg font-semibold">Characters (no newlines)</h2>
-                <p className="text-2xl font-bold dark:text-white">{charCount}</p>
+                <p className="text-2xl font-bold dark:text-white">{charCountWithoutNewlines}</p>
             </div>
             <div className="p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
                 <h2 className="text-lg font-semibold">Words</h2>
