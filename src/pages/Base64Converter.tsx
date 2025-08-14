@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
+import { encode, decode } from '../utils/base64';
 
-const Base64Converter: React.FC = () => {
+export default function Base64Converter() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [error, setError] = useState('');
 
   const handleEncode = () => {
     try {
-      const encoded = btoa(
-        encodeURIComponent(input).replace(/%([0-9A-F]{2})/g, (match, p1) => {
-          return String.fromCharCode(Number('0x' + p1));
-        })
-      );
+      const encoded = encode(input);
       setOutput(encoded);
       setError('');
     } catch (_e) {
@@ -22,14 +19,7 @@ const Base64Converter: React.FC = () => {
 
   const handleDecode = () => {
     try {
-      const decoded = decodeURIComponent(
-        atob(input)
-          .split('')
-          .map((c) => {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-          })
-          .join('')
-      );
+      const decoded = decode(input);
       setOutput(decoded);
       setError('');
     } catch (_e) {
@@ -90,6 +80,4 @@ const Base64Converter: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default Base64Converter;
+}
