@@ -12,6 +12,7 @@ export const navItems: NavItem[] = [
       { type: 'link', text: 'Tool 2', to: '/tools/tool2' },
       { type: 'link', text: 'Tool 3', to: '/tools/tool3' },
       { type: 'link', text: 'JSON Formatter', to: '/tools/json-formatter' },
+      { type: 'link', text: 'Base64 Converter', to: '/tools/base64-converter' },
     ],
   },
   { type: 'external', text: 'GitHub', href: 'https://github.com/ytkg' },
