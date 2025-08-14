@@ -17,6 +17,13 @@ describe('RubyRunner', () => {
     // Reset mocks before each test
     vi.clearAllMocks();
 
+    // Mock fetch
+    global.fetch = vi.fn(() =>
+      Promise.resolve({
+        arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
+      } as Response)
+    );
+
     // Setup the mock VM object that will be returned by DefaultRubyVM
     mockVm = {
       eval: vi.fn().mockImplementation(async (code: string) => {
@@ -99,14 +106,15 @@ describe('RubyRunner', () => {
   });
 
   it('should display an error and keep button disabled if VM fails to initialize', async () => {
-    (RubyWASM.DefaultRubyVM as vi.Mock).mockRejectedValue(new Error('WASM Load Error'));
+    // Make fetch reject
+    (global.fetch as vi.Mock).mockRejectedValue(new Error('Network error'));
 
     render(<RubyRunner />);
 
     // Wait for the error message to be displayed
     await waitFor(() => {
         expect(screen.getByText(/error: failed to initialize ruby vm/i)).toBeInTheDocument();
-        expect(screen.getByText(/wasm load error/i)).toBeInTheDocument();
+        expect(screen.getByText(/network error/i)).toBeInTheDocument();
     });
 
     // The button should now say "Run" but be disabled

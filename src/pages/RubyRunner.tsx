@@ -32,7 +32,9 @@ const RubyRunner: React.FC = () => {
     const initializeVM = async () => {
       setOutput('Initializing Ruby VM...\nPlease wait, it may take a moment.');
       try {
-        const vm = await RubyWASM.DefaultRubyVM();
+        const response = await fetch("https://cdn.jsdelivr.net/npm/ruby-head-wasm-wasi@2.3.0/dist/ruby.wasm");
+        const buffer = await response.arrayBuffer();
+        const vm = await RubyWASM.DefaultRubyVM(buffer);
         vmRef.current = vm;
         setVmReady(true);
         setOutput('Ruby VM is ready. Click "Run" to execute code.');
