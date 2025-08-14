@@ -46,16 +46,15 @@ describe('Navbar', () => {
     await user.hover(toolsButton);
 
     // Now the links should be visible
-    expect(await screen.findByRole('link', { name: 'Tool 1' })).toBeVisible();
-    expect(screen.getByRole('link', { name: 'Tool 2' })).toBeVisible();
-    expect(screen.getByRole('link', { name: 'Tool 3' })).toBeVisible();
+    expect(await screen.findByRole('link', { name: 'JSON Formatter' })).toBeVisible();
+    expect(screen.getByRole('link', { name: 'Base64 Converter' })).toBeVisible();
 
     // Move the mouse away
     await user.unhover(toolsButton);
 
     // The links should be hidden again. We use queryByRole because it returns null if not found.
     // We need to wait for the animation/state change to complete.
-    expect(screen.queryByRole('link', { name: 'Tool 1' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'JSON Formatter' })).not.toBeInTheDocument();
   });
 
   it('opens and closes the mobile menu and tools accordion on click', async () => {
@@ -83,19 +82,18 @@ describe('Navbar', () => {
     expect(mobileToolsButton).toBeVisible();
 
     // The tool sub-links should not be visible yet
-    expect(mobileNav.queryByRole('link', { name: 'Tool 1' })).not.toBeInTheDocument();
+    expect(mobileNav.queryByRole('link', { name: 'JSON Formatter' })).not.toBeInTheDocument();
 
     // Click to open the tools accordion
     await user.click(mobileToolsButton);
 
     // Now the tool sub-links should be visible
-    expect(await mobileNav.findByRole('link', { name: 'Tool 1' })).toBeVisible();
-    expect(mobileNav.getByRole('link', { name: 'Tool 2' })).toBeVisible();
-    expect(mobileNav.getByRole('link', { name: 'Tool 3' })).toBeVisible();
+    expect(await mobileNav.findByRole('link', { name: 'JSON Formatter' })).toBeVisible();
+    expect(mobileNav.getByRole('link', { name: 'Base64 Converter' })).toBeVisible();
 
     // Click again to close the accordion
     await user.click(mobileToolsButton);
-    expect(mobileNav.queryByRole('link', { name: 'Tool 1' })).not.toBeInTheDocument();
+    expect(mobileNav.queryByRole('link', { name: 'JSON Formatter' })).not.toBeInTheDocument();
 
     // Find and click the close button (X icon) to close the mobile menu
     const closeButton = mobileNav.getByRole('button', { name: /close menu/i });
