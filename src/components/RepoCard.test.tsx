@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import RepoCard from './RepoCard';
-import { Repository } from '../types';
+import type { Repository } from '../types';
 
 describe('RepoCard component', () => {
   const mockRepo: Repository = {
