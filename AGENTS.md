@@ -89,3 +89,4 @@ To avoid proposing tools that already exist, please check the following list of 
 *   Base64 Converter
 *   Character Counter
 *   QR Code Generator
+*   Unix Timestamp Converter
