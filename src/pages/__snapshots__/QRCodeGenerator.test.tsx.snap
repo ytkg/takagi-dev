@@ -43,13 +43,19 @@ exports[`QRCodeGenerator > matches the snapshot 1`] = `
       </div>
     </div>
     <div
-      class="mt-4"
+      class="mt-4 flex space-x-2"
     >
       <button
         class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
         disabled=""
       >
         Clear
+      </button>
+      <button
+        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-blue-300"
+        disabled=""
+      >
+        Save Image
       </button>
     </div>
   </div>

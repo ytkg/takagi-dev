@@ -50,4 +50,26 @@ describe('QRCodeGenerator', () => {
     const { container } = render(<QRCodeGenerator />);
     expect(container).toMatchSnapshot();
   });
+
+  describe('Save Image button', () => {
+    test('is disabled when there is no text', () => {
+      render(<QRCodeGenerator />);
+      const saveButton = screen.getByRole('button', { name: /save image/i });
+      expect(saveButton).toBeInTheDocument();
+      expect(saveButton).toBeDisabled();
+    });
+
+    test('is enabled when there is text', () => {
+      render(<QRCodeGenerator />);
+      const saveButton = screen.getByRole('button', { name: /save image/i });
+      const inputArea = screen.getByPlaceholderText('Enter text or URL to generate QR code...');
+
+      // Check if disabled initially
+      expect(saveButton).toBeDisabled();
+
+      // Type text and check if enabled
+      fireEvent.change(inputArea, { target: { value: 'Hello' } });
+      expect(saveButton).toBeEnabled();
+    });
+  });
 });
