@@ -7,6 +7,7 @@ import Products from './pages/Products';
 import JsonFormatter from './pages/JsonFormatter';
 import Base64Converter from './pages/Base64Converter';
 import CharacterCounter from './pages/CharacterCounter';
+import QRCodeGenerator from './pages/QRCodeGenerator';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/tools/json-formatter" element={<JsonFormatter />} />
           <Route path="/tools/base64-converter" element={<Base64Converter />} />
           <Route path="/tools/character-counter" element={<CharacterCounter />} />
+          <Route path="/tools/qr-code-generator" element={<QRCodeGenerator />} />
         </Routes>
       </main>
       <Footer />
