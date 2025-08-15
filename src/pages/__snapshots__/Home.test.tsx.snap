@@ -6,7 +6,7 @@ exports[`Home page > matches the snapshot 1`] = `
     class="flex flex-col bg-white h-screen -mt-16 -mb-12"
   >
     <div
-      class="flex-grow flex flex-col justify-center items-center"
+      class="flex-grow flex flex-col justify-center items-center pb-52"
     >
       <h1
         class="lg:text-8xl md:text-7xl sm:text-6xl text-4xl font-black"
@@ -15,7 +15,7 @@ exports[`Home page > matches the snapshot 1`] = `
       </h1>
     </div>
     <div
-      class="w-full overflow-x-auto py-8 mb-8"
+      class="fixed bottom-[50px] left-0 right-0 w-full overflow-x-auto py-8 bg-white shadow-lg"
     >
       <div
         class="flex space-x-8"
