@@ -53,6 +53,7 @@ Here is a typical workflow for completing a task in this repository.
     *   Pages are located in `src/pages`.
     *   Reusable components are in `src/components`.
     *   Make the required code modifications.
+    *   **Important:** If you add a new tool, remember to update the "Available Tools" list at the end of this document.
 
 4.  **Lint and Test:**
     Before finalizing your changes, ensure your code adheres to the project's style guidelines and that all tests pass.
@@ -79,3 +80,12 @@ Here is a typical workflow for completing a task in this repository.
     a. Use the `request_code_review()` tool to get feedback on your work.
     b. Address any suggested changes.
     c. Use the `submit()` tool to commit your changes with a clear, descriptive message.
+
+## Available Tools
+
+To avoid proposing tools that already exist, please check the following list of currently implemented tools before starting your work.
+
+*   JSON Formatter
+*   Base64 Converter
+*   Character Counter
+*   QR Code Generator

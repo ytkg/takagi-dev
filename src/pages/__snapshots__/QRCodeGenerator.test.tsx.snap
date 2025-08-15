@@ -1,0 +1,63 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`QRCodeGenerator > matches the snapshot 1`] = `
+<div>
+  <div
+    class="p-8"
+  >
+    <h1
+      class="text-2xl font-bold mb-4"
+    >
+      QR Code Generator
+    </h1>
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 gap-4"
+    >
+      <div>
+        <h2
+          class="text-lg font-semibold mb-2"
+        >
+          Input
+        </h2>
+        <textarea
+          class="w-full h-48 p-2 border rounded-md font-mono text-sm bg-gray-50 dark:bg-gray-800 dark:text-white"
+          placeholder="Enter text or URL to generate QR code..."
+        />
+      </div>
+      <div>
+        <h2
+          class="text-lg font-semibold mb-2"
+        >
+          Output
+        </h2>
+        <div
+          class="w-full h-48 p-4 border rounded-md bg-white flex items-center justify-center"
+          data-testid="qr-code-output"
+        >
+          <span
+            class="text-gray-400"
+          >
+            QR code will appear here
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="mt-4 flex space-x-2"
+    >
+      <button
+        class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+        disabled=""
+      >
+        Clear
+      </button>
+      <button
+        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-blue-300"
+        disabled=""
+      >
+        Save Image
+      </button>
+    </div>
+  </div>
+</div>
+`;
