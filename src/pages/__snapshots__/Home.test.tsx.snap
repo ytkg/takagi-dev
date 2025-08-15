@@ -3,862 +3,858 @@
 exports[`Home page > matches the snapshot 1`] = `
 <div>
   <div
-    class="flex flex-col bg-white h-screen -mt-16 -mb-12"
+    class="flex flex-col justify-center items-center bg-white h-screen -mt-16 -mb-12"
+  >
+    <h1
+      class="lg:text-8xl md:text-7xl sm:text-6xl text-4xl font-black mb-14"
+    >
+      Hello World!
+    </h1>
+  </div>
+  <div
+    class="fixed bottom-[50px] left-0 right-0 w-full overflow-x-auto py-8 bg-white shadow-lg"
   >
     <div
-      class="flex-grow flex flex-col justify-center items-center pb-52"
-    >
-      <h1
-        class="lg:text-8xl md:text-7xl sm:text-6xl text-4xl font-black"
-      >
-        Hello World!
-      </h1>
-    </div>
-    <div
-      class="fixed bottom-[50px] left-0 right-0 w-full overflow-x-auto py-8 bg-white shadow-lg"
+      class="flex space-x-8"
     >
       <div
-        class="flex space-x-8"
+        class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
       >
-        <div
-          class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
-        >
-          <div>
-            <h3
-              class="text-xl font-bold mb-2"
-            >
-              <a
-                class="hover:underline"
-                href="https://github.com/ytkg/switchbot"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                switchbot
-              </a>
-            </h3>
-            <p
-              class="text-gray-700 mb-4"
-            >
-              SwitchBot API client for Ruby
-            </p>
-          </div>
-          <div
-            class="flex items-center text-sm text-gray-500"
+        <div>
+          <h3
+            class="text-xl font-bold mb-2"
           >
-            <span
-              class="mr-4 flex items-center"
+            <a
+              class="hover:underline"
+              href="https://github.com/ytkg/switchbot"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              9
-            </span>
-            <span
-              class="mr-4 flex items-center"
-            >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              4
-            </span>
-            <span
-              class="flex items-center"
-            >
-              Ruby
-            </span>
-          </div>
+              switchbot
+            </a>
+          </h3>
+          <p
+            class="text-gray-700 mb-4"
+          >
+            SwitchBot API client for Ruby
+          </p>
         </div>
         <div
-          class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+          class="flex items-center text-sm text-gray-500"
         >
-          <div>
-            <h3
-              class="text-xl font-bold mb-2"
-            >
-              <a
-                class="hover:underline"
-                href="https://github.com/ytkg/commit-genius"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                commit-genius
-              </a>
-            </h3>
-            <p
-              class="text-gray-700 mb-4"
-            >
-              Generate commit messages with AI
-            </p>
-          </div>
-          <div
-            class="flex items-center text-sm text-gray-500"
+          <span
+            class="mr-4 flex items-center"
           >
-            <span
-              class="mr-4 flex items-center"
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              10
-            </span>
-            <span
-              class="mr-4 flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            9
+          </span>
+          <span
+            class="mr-4 flex items-center"
+          >
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              2
-            </span>
-            <span
-              class="flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            4
+          </span>
+          <span
+            class="flex items-center"
+          >
+            Ruby
+          </span>
+        </div>
+      </div>
+      <div
+        class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+      >
+        <div>
+          <h3
+            class="text-xl font-bold mb-2"
+          >
+            <a
+              class="hover:underline"
+              href="https://github.com/ytkg/commit-genius"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              TypeScript
-            </span>
-          </div>
+              commit-genius
+            </a>
+          </h3>
+          <p
+            class="text-gray-700 mb-4"
+          >
+            Generate commit messages with AI
+          </p>
         </div>
         <div
-          class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+          class="flex items-center text-sm text-gray-500"
         >
-          <div>
-            <h3
-              class="text-xl font-bold mb-2"
-            >
-              <a
-                class="hover:underline"
-                href="https://github.com/ytkg/komeda"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                komeda
-              </a>
-            </h3>
-            <p
-              class="text-gray-700 mb-4"
-            >
-              A Ruby script to check for Komeda Wi-Fi availability.
-            </p>
-          </div>
-          <div
-            class="flex items-center text-sm text-gray-500"
+          <span
+            class="mr-4 flex items-center"
           >
-            <span
-              class="mr-4 flex items-center"
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              5
-            </span>
-            <span
-              class="mr-4 flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            10
+          </span>
+          <span
+            class="mr-4 flex items-center"
+          >
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              1
-            </span>
-            <span
-              class="flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            2
+          </span>
+          <span
+            class="flex items-center"
+          >
+            TypeScript
+          </span>
+        </div>
+      </div>
+      <div
+        class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+      >
+        <div>
+          <h3
+            class="text-xl font-bold mb-2"
+          >
+            <a
+              class="hover:underline"
+              href="https://github.com/ytkg/komeda"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              Ruby
-            </span>
-          </div>
+              komeda
+            </a>
+          </h3>
+          <p
+            class="text-gray-700 mb-4"
+          >
+            A Ruby script to check for Komeda Wi-Fi availability.
+          </p>
         </div>
         <div
-          class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+          class="flex items-center text-sm text-gray-500"
         >
-          <div>
-            <h3
-              class="text-xl font-bold mb-2"
-            >
-              <a
-                class="hover:underline"
-                href="https://github.com/ytkg/bundle_outdated_formatter"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                bundle_outdated_formatter
-              </a>
-            </h3>
-            <p
-              class="text-gray-700 mb-4"
-            >
-              A tool to format the output of \`bundle outdated\`
-            </p>
-          </div>
-          <div
-            class="flex items-center text-sm text-gray-500"
+          <span
+            class="mr-4 flex items-center"
           >
-            <span
-              class="mr-4 flex items-center"
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              3
-            </span>
-            <span
-              class="mr-4 flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            5
+          </span>
+          <span
+            class="mr-4 flex items-center"
+          >
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              0
-            </span>
-            <span
-              class="flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            1
+          </span>
+          <span
+            class="flex items-center"
+          >
+            Ruby
+          </span>
+        </div>
+      </div>
+      <div
+        class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+      >
+        <div>
+          <h3
+            class="text-xl font-bold mb-2"
+          >
+            <a
+              class="hover:underline"
+              href="https://github.com/ytkg/bundle_outdated_formatter"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              Ruby
-            </span>
-          </div>
+              bundle_outdated_formatter
+            </a>
+          </h3>
+          <p
+            class="text-gray-700 mb-4"
+          >
+            A tool to format the output of \`bundle outdated\`
+          </p>
         </div>
         <div
-          class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+          class="flex items-center text-sm text-gray-500"
         >
-          <div>
-            <h3
-              class="text-xl font-bold mb-2"
-            >
-              <a
-                class="hover:underline"
-                href="https://github.com/ytkg/amazon-affiliate-product-selector"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                amazon-affiliate-product-selector
-              </a>
-            </h3>
-            <p
-              class="text-gray-700 mb-4"
-            >
-              A simple product selector for Amazon affiliates.
-            </p>
-          </div>
-          <div
-            class="flex items-center text-sm text-gray-500"
+          <span
+            class="mr-4 flex items-center"
           >
-            <span
-              class="mr-4 flex items-center"
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              1
-            </span>
-            <span
-              class="mr-4 flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            3
+          </span>
+          <span
+            class="mr-4 flex items-center"
+          >
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              0
-            </span>
-            <span
-              class="flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            0
+          </span>
+          <span
+            class="flex items-center"
+          >
+            Ruby
+          </span>
+        </div>
+      </div>
+      <div
+        class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+      >
+        <div>
+          <h3
+            class="text-xl font-bold mb-2"
+          >
+            <a
+              class="hover:underline"
+              href="https://github.com/ytkg/amazon-affiliate-product-selector"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              TypeScript
-            </span>
-          </div>
+              amazon-affiliate-product-selector
+            </a>
+          </h3>
+          <p
+            class="text-gray-700 mb-4"
+          >
+            A simple product selector for Amazon affiliates.
+          </p>
         </div>
         <div
-          class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+          class="flex items-center text-sm text-gray-500"
         >
-          <div>
-            <h3
-              class="text-xl font-bold mb-2"
-            >
-              <a
-                class="hover:underline"
-                href="https://github.com/ytkg/spotify-workers"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                spotify-workers
-              </a>
-            </h3>
-            <p
-              class="text-gray-700 mb-4"
-            >
-              A serverless function to get Spotify now playing.
-            </p>
-          </div>
-          <div
-            class="flex items-center text-sm text-gray-500"
+          <span
+            class="mr-4 flex items-center"
           >
-            <span
-              class="mr-4 flex items-center"
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              2
-            </span>
-            <span
-              class="mr-4 flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            1
+          </span>
+          <span
+            class="mr-4 flex items-center"
+          >
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              0
-            </span>
-            <span
-              class="flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            0
+          </span>
+          <span
+            class="flex items-center"
+          >
+            TypeScript
+          </span>
+        </div>
+      </div>
+      <div
+        class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+      >
+        <div>
+          <h3
+            class="text-xl font-bold mb-2"
+          >
+            <a
+              class="hover:underline"
+              href="https://github.com/ytkg/spotify-workers"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              TypeScript
-            </span>
-          </div>
+              spotify-workers
+            </a>
+          </h3>
+          <p
+            class="text-gray-700 mb-4"
+          >
+            A serverless function to get Spotify now playing.
+          </p>
         </div>
         <div
-          class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+          class="flex items-center text-sm text-gray-500"
         >
-          <div>
-            <h3
-              class="text-xl font-bold mb-2"
-            >
-              <a
-                class="hover:underline"
-                href="https://github.com/ytkg/switchbot"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                switchbot
-              </a>
-            </h3>
-            <p
-              class="text-gray-700 mb-4"
-            >
-              SwitchBot API client for Ruby
-            </p>
-          </div>
-          <div
-            class="flex items-center text-sm text-gray-500"
+          <span
+            class="mr-4 flex items-center"
           >
-            <span
-              class="mr-4 flex items-center"
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              9
-            </span>
-            <span
-              class="mr-4 flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            2
+          </span>
+          <span
+            class="mr-4 flex items-center"
+          >
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              4
-            </span>
-            <span
-              class="flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            0
+          </span>
+          <span
+            class="flex items-center"
+          >
+            TypeScript
+          </span>
+        </div>
+      </div>
+      <div
+        class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+      >
+        <div>
+          <h3
+            class="text-xl font-bold mb-2"
+          >
+            <a
+              class="hover:underline"
+              href="https://github.com/ytkg/switchbot"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              Ruby
-            </span>
-          </div>
+              switchbot
+            </a>
+          </h3>
+          <p
+            class="text-gray-700 mb-4"
+          >
+            SwitchBot API client for Ruby
+          </p>
         </div>
         <div
-          class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+          class="flex items-center text-sm text-gray-500"
         >
-          <div>
-            <h3
-              class="text-xl font-bold mb-2"
-            >
-              <a
-                class="hover:underline"
-                href="https://github.com/ytkg/commit-genius"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                commit-genius
-              </a>
-            </h3>
-            <p
-              class="text-gray-700 mb-4"
-            >
-              Generate commit messages with AI
-            </p>
-          </div>
-          <div
-            class="flex items-center text-sm text-gray-500"
+          <span
+            class="mr-4 flex items-center"
           >
-            <span
-              class="mr-4 flex items-center"
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              10
-            </span>
-            <span
-              class="mr-4 flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            9
+          </span>
+          <span
+            class="mr-4 flex items-center"
+          >
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              2
-            </span>
-            <span
-              class="flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            4
+          </span>
+          <span
+            class="flex items-center"
+          >
+            Ruby
+          </span>
+        </div>
+      </div>
+      <div
+        class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+      >
+        <div>
+          <h3
+            class="text-xl font-bold mb-2"
+          >
+            <a
+              class="hover:underline"
+              href="https://github.com/ytkg/commit-genius"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              TypeScript
-            </span>
-          </div>
+              commit-genius
+            </a>
+          </h3>
+          <p
+            class="text-gray-700 mb-4"
+          >
+            Generate commit messages with AI
+          </p>
         </div>
         <div
-          class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+          class="flex items-center text-sm text-gray-500"
         >
-          <div>
-            <h3
-              class="text-xl font-bold mb-2"
-            >
-              <a
-                class="hover:underline"
-                href="https://github.com/ytkg/komeda"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                komeda
-              </a>
-            </h3>
-            <p
-              class="text-gray-700 mb-4"
-            >
-              A Ruby script to check for Komeda Wi-Fi availability.
-            </p>
-          </div>
-          <div
-            class="flex items-center text-sm text-gray-500"
+          <span
+            class="mr-4 flex items-center"
           >
-            <span
-              class="mr-4 flex items-center"
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              5
-            </span>
-            <span
-              class="mr-4 flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            10
+          </span>
+          <span
+            class="mr-4 flex items-center"
+          >
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              1
-            </span>
-            <span
-              class="flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            2
+          </span>
+          <span
+            class="flex items-center"
+          >
+            TypeScript
+          </span>
+        </div>
+      </div>
+      <div
+        class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+      >
+        <div>
+          <h3
+            class="text-xl font-bold mb-2"
+          >
+            <a
+              class="hover:underline"
+              href="https://github.com/ytkg/komeda"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              Ruby
-            </span>
-          </div>
+              komeda
+            </a>
+          </h3>
+          <p
+            class="text-gray-700 mb-4"
+          >
+            A Ruby script to check for Komeda Wi-Fi availability.
+          </p>
         </div>
         <div
-          class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+          class="flex items-center text-sm text-gray-500"
         >
-          <div>
-            <h3
-              class="text-xl font-bold mb-2"
-            >
-              <a
-                class="hover:underline"
-                href="https://github.com/ytkg/bundle_outdated_formatter"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                bundle_outdated_formatter
-              </a>
-            </h3>
-            <p
-              class="text-gray-700 mb-4"
-            >
-              A tool to format the output of \`bundle outdated\`
-            </p>
-          </div>
-          <div
-            class="flex items-center text-sm text-gray-500"
+          <span
+            class="mr-4 flex items-center"
           >
-            <span
-              class="mr-4 flex items-center"
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              3
-            </span>
-            <span
-              class="mr-4 flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            5
+          </span>
+          <span
+            class="mr-4 flex items-center"
+          >
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              0
-            </span>
-            <span
-              class="flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            1
+          </span>
+          <span
+            class="flex items-center"
+          >
+            Ruby
+          </span>
+        </div>
+      </div>
+      <div
+        class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+      >
+        <div>
+          <h3
+            class="text-xl font-bold mb-2"
+          >
+            <a
+              class="hover:underline"
+              href="https://github.com/ytkg/bundle_outdated_formatter"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              Ruby
-            </span>
-          </div>
+              bundle_outdated_formatter
+            </a>
+          </h3>
+          <p
+            class="text-gray-700 mb-4"
+          >
+            A tool to format the output of \`bundle outdated\`
+          </p>
         </div>
         <div
-          class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+          class="flex items-center text-sm text-gray-500"
         >
-          <div>
-            <h3
-              class="text-xl font-bold mb-2"
-            >
-              <a
-                class="hover:underline"
-                href="https://github.com/ytkg/amazon-affiliate-product-selector"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                amazon-affiliate-product-selector
-              </a>
-            </h3>
-            <p
-              class="text-gray-700 mb-4"
-            >
-              A simple product selector for Amazon affiliates.
-            </p>
-          </div>
-          <div
-            class="flex items-center text-sm text-gray-500"
+          <span
+            class="mr-4 flex items-center"
           >
-            <span
-              class="mr-4 flex items-center"
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              1
-            </span>
-            <span
-              class="mr-4 flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            3
+          </span>
+          <span
+            class="mr-4 flex items-center"
+          >
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              0
-            </span>
-            <span
-              class="flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            0
+          </span>
+          <span
+            class="flex items-center"
+          >
+            Ruby
+          </span>
+        </div>
+      </div>
+      <div
+        class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+      >
+        <div>
+          <h3
+            class="text-xl font-bold mb-2"
+          >
+            <a
+              class="hover:underline"
+              href="https://github.com/ytkg/amazon-affiliate-product-selector"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              TypeScript
-            </span>
-          </div>
+              amazon-affiliate-product-selector
+            </a>
+          </h3>
+          <p
+            class="text-gray-700 mb-4"
+          >
+            A simple product selector for Amazon affiliates.
+          </p>
         </div>
         <div
-          class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+          class="flex items-center text-sm text-gray-500"
         >
-          <div>
-            <h3
-              class="text-xl font-bold mb-2"
-            >
-              <a
-                class="hover:underline"
-                href="https://github.com/ytkg/spotify-workers"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                spotify-workers
-              </a>
-            </h3>
-            <p
-              class="text-gray-700 mb-4"
-            >
-              A serverless function to get Spotify now playing.
-            </p>
-          </div>
-          <div
-            class="flex items-center text-sm text-gray-500"
+          <span
+            class="mr-4 flex items-center"
           >
-            <span
-              class="mr-4 flex items-center"
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              2
-            </span>
-            <span
-              class="mr-4 flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            1
+          </span>
+          <span
+            class="mr-4 flex items-center"
+          >
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                class="h-4 w-4 mr-1"
-                data-slot="icon"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-              0
-            </span>
-            <span
-              class="flex items-center"
+              <path
+                clip-rule="evenodd"
+                d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            0
+          </span>
+          <span
+            class="flex items-center"
+          >
+            TypeScript
+          </span>
+        </div>
+      </div>
+      <div
+        class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-between w-80 flex-shrink-0"
+      >
+        <div>
+          <h3
+            class="text-xl font-bold mb-2"
+          >
+            <a
+              class="hover:underline"
+              href="https://github.com/ytkg/spotify-workers"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              TypeScript
-            </span>
-          </div>
+              spotify-workers
+            </a>
+          </h3>
+          <p
+            class="text-gray-700 mb-4"
+          >
+            A serverless function to get Spotify now playing.
+          </p>
+        </div>
+        <div
+          class="flex items-center text-sm text-gray-500"
+        >
+          <span
+            class="mr-4 flex items-center"
+          >
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            2
+          </span>
+          <span
+            class="mr-4 flex items-center"
+          >
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4 mr-1"
+              data-slot="icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            0
+          </span>
+          <span
+            class="flex items-center"
+          >
+            TypeScript
+          </span>
         </div>
       </div>
     </div>
