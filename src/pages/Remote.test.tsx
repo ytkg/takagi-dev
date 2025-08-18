@@ -2,90 +2,100 @@ import { render, screen, fireEvent, act } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import Remote from './Remote';
 
+// Create a persistent mock oscillator
+const mockOscillator = {
+  connect: vi.fn(),
+  start: vi.fn(),
+  stop: vi.fn(),
+  type: '',
+  frequency: { setValueAtTime: vi.fn() },
+};
+
+// Create a persistent mock gain node
+const mockGainNode = {
+  connect: vi.fn(),
+  gain: { setValueAtTime: vi.fn() },
+};
+
+// Mock AudioContext that returns the persistent mocks
+const mockAudioContext = {
+  createOscillator: vi.fn(() => mockOscillator),
+  createGain: vi.fn(() => mockGainNode),
+  destination: {},
+  currentTime: 0,
+};
+
+beforeEach(() => {
+  vi.useFakeTimers();
+  vi.stubGlobal('AudioContext', vi.fn(() => mockAudioContext));
+  vi.stubGlobal('webkitAudioContext', vi.fn(() => mockAudioContext));
+  // Clear mock history before each test
+  vi.clearAllMocks();
+});
+
+afterEach(() => {
+  vi.restoreAllMocks();
+});
+
 describe('Remote', () => {
-  beforeEach(() => {
-    vi.useFakeTimers();
-  });
-
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
   it('renders the initial temperature', () => {
     render(<Remote />);
-    expect(screen.getByText('28')).toBeInTheDocument();
+    expect(screen.getByText('28.0')).toBeInTheDocument();
   });
 
-  it('increases the temperature when the + button is clicked', () => {
+  it('increases the temperature by 0.2 when the + button is clicked', () => {
     render(<Remote />);
     const increaseButton = screen.getByRole('button', { name: 'Increase temperature' });
     fireEvent.click(increaseButton);
-    expect(screen.getByText('29')).toBeInTheDocument();
+    expect(screen.getByText('28.2')).toBeInTheDocument();
   });
 
-  it('decreases the temperature when the - button is clicked', () => {
+  it('decreases the temperature by 0.2 when the - button is clicked', () => {
     render(<Remote />);
     const decreaseButton = screen.getByRole('button', { name: 'Decrease temperature' });
     fireEvent.click(decreaseButton);
-    expect(screen.getByText('27')).toBeInTheDocument();
+    expect(screen.getByText('27.8')).toBeInTheDocument();
   });
 
-  it('flashes the indicator 1 second after the last temperature change', () => {
+  it('updates the temperature when the slider is moved', () => {
+    render(<Remote />);
+    const slider = screen.getByRole('slider', { name: 'Temperature slider' });
+    fireEvent.change(slider, { target: { value: '22.4' } });
+    expect(screen.getByText('22.4')).toBeInTheDocument();
+  });
+
+  it('flashes and beeps 1 second after the last temperature change', () => {
     render(<Remote />);
     const indicator = screen.getByTestId('flash-indicator');
     const increaseButton = screen.getByRole('button', { name: 'Increase temperature' });
 
-    // Initial state
-    expect(indicator).toHaveClass('bg-gray-300');
-
-    // Click button
     fireEvent.click(increaseButton);
-    expect(indicator).toHaveClass('bg-gray-300'); // Should not flash immediately
 
-    // Advance time by 999ms
-    act(() => {
-      vi.advanceTimersByTime(999);
-    });
-    expect(indicator).toHaveClass('bg-gray-300'); // Still should not have flashed
+    act(() => { vi.advanceTimersByTime(999); });
+    expect(indicator).toHaveClass('bg-gray-300');
+    expect(mockOscillator.start).not.toHaveBeenCalled();
 
-    // Advance time by 1ms to reach the 1-second mark
-    act(() => {
-      vi.advanceTimersByTime(1);
-    });
-    expect(indicator).toHaveClass('bg-green-500'); // Now it should be flashing
+    act(() => { vi.advanceTimersByTime(1); });
+    expect(indicator).toHaveClass('bg-green-500');
+    expect(mockOscillator.start).toHaveBeenCalledOnce();
 
-    // Advance time by 200ms for the flash to end
-    act(() => {
-      vi.advanceTimersByTime(200);
-    });
-    expect(indicator).toHaveClass('bg-gray-300'); // Flash should be over
+    act(() => { vi.advanceTimersByTime(200); });
+    expect(indicator).toHaveClass('bg-gray-300');
   });
 
-  it('debounces the flash effect on multiple clicks', () => {
+  it('debounces the flash and beep effect on multiple clicks', () => {
     render(<Remote />);
-    const indicator = screen.getByTestId('flash-indicator');
     const increaseButton = screen.getByRole('button', { name: 'Increase temperature' });
 
-    // Click multiple times in quick succession
-    fireEvent.click(increaseButton); // t=0
-    act(() => { vi.advanceTimersByTime(500); }); // t=500ms
-    fireEvent.click(increaseButton); // t=500ms, timer reset
-    act(() => { vi.advanceTimersByTime(500); }); // t=1000ms
-    fireEvent.click(increaseButton); // t=1000ms, timer reset
+    fireEvent.click(increaseButton);
+    act(() => { vi.advanceTimersByTime(500); });
+    fireEvent.click(increaseButton);
+    act(() => { vi.advanceTimersByTime(500); });
+    fireEvent.click(increaseButton);
 
-    // At this point, 1s has passed, but the timer was reset. Nothing should have flashed.
-    expect(indicator).toHaveClass('bg-gray-300');
+    expect(mockOscillator.start).not.toHaveBeenCalled();
 
-    // Advance time to 1 second after the *last* click
-    act(() => {
-      vi.advanceTimersByTime(1000);
-    }); // t=2000ms
-    expect(indicator).toHaveClass('bg-green-500'); // Now it should flash
-
-    // Advance time for the flash to end
-    act(() => {
-      vi.advanceTimersByTime(200);
-    }); // t=2200ms
-    expect(indicator).toHaveClass('bg-gray-300');
+    act(() => { vi.advanceTimersByTime(1000); });
+    expect(mockOscillator.start).toHaveBeenCalledOnce();
   });
 });
