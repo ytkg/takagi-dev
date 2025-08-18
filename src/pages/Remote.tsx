@@ -160,10 +160,6 @@ export default function Remote() {
               className="absolute bottom-0 w-full bg-blue-500 rounded-full"
               style={{ height: `${sliderPercentage}%` }}
             />
-            <div
-              className="absolute left-1/2 -translate-x-1/2 w-6 h-6 bg-white rounded-full shadow-md border border-gray-200 pointer-events-none"
-              style={{ bottom: `calc(${sliderPercentage}% - 12px)` }}
-            />
           </div>
         </div>
         <div className="flex justify-around">
