@@ -9,6 +9,8 @@ export default function Remote() {
   const [cooldownTime, setCooldownTime] = useState(0);
   const isInitialMount = useRef(true);
   const cooldownIntervalRef = useRef<number | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const gaugeRef = useRef<HTMLDivElement>(null);
 
   const playBeep = () => {
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
@@ -57,14 +59,53 @@ export default function Remote() {
     };
   }, [temperature]);
 
-  const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTemperature(parseFloat(e.target.value));
+  const calculateTempFromY = (y: number) => {
+    if (!gaugeRef.current) return temperature;
+
+    const rect = gaugeRef.current.getBoundingClientRect();
+    const percent = Math.max(0, Math.min(1, (rect.bottom - y) / rect.height));
+    const newTemp = MIN_TEMP + percent * (MAX_TEMP - MIN_TEMP);
+    // Snap to 0.2 increments
+    return Math.round(newTemp / 0.2) * 0.2;
   };
 
-  const sliderPercentage = ((temperature - MIN_TEMP) / (MAX_TEMP - MIN_TEMP)) * 100;
-  const sliderStyle = {
-    background: `linear-gradient(to top, #3b82f6 ${sliderPercentage}%, #d1d5db ${sliderPercentage}%)`,
+  const handleInteractionStart = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
+    if (isLocked) return;
+    setIsDragging(true);
+    const y = 'touches' in e ? e.touches[0].clientY : e.clientY;
+    setTemperature(calculateTempFromY(y));
   };
+
+  const handleInteractionMove = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
+    if (!isDragging || isLocked) return;
+    const y = 'touches' in e ? e.touches[0].clientY : e.clientY;
+    setTemperature(calculateTempFromY(y));
+  };
+
+  const handleInteractionEnd = () => {
+    setIsDragging(false);
+  };
+
+  useEffect(() => {
+    const handleMouseUp = () => setIsDragging(false);
+    const handleTouchEnd = () => setIsDragging(false);
+
+    if (isDragging) {
+      window.addEventListener('mousemove', handleInteractionMove as any);
+      window.addEventListener('touchmove', handleInteractionMove as any);
+      window.addEventListener('mouseup', handleMouseUp);
+      window.addEventListener('touchend', handleTouchEnd);
+    }
+
+    return () => {
+      window.removeEventListener('mousemove', handleInteractionMove as any);
+      window.removeEventListener('touchmove', handleInteractionMove as any);
+      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [isDragging]);
+
+  const sliderPercentage = ((temperature - MIN_TEMP) / (MAX_TEMP - MIN_TEMP)) * 100;
 
   const circumference = 2 * Math.PI * 54; // r=54
   const strokeDashoffset = circumference - (cooldownTime / 5) * circumference;
@@ -108,18 +149,22 @@ export default function Remote() {
             <span>{MAX_TEMP}&deg;C</span>
             <span>{MIN_TEMP}&deg;C</span>
           </div>
-          <input
-            type="range"
-            min={MIN_TEMP}
-            max={MAX_TEMP}
-            step="0.2"
-            value={temperature}
-            onChange={handleSliderChange}
-            disabled={isLocked}
-            style={sliderStyle}
-            className="h-36 w-4 appearance-none cursor-pointer rounded-full disabled:opacity-50 [writing-mode:bt-lr] [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-blue-500"
-            aria-label="Temperature slider"
-          />
+          <div
+            ref={gaugeRef}
+            onMouseDown={handleInteractionStart}
+            onTouchStart={handleInteractionStart}
+            data-testid="custom-gauge"
+            className={`relative h-36 w-8 bg-gray-200 rounded-full cursor-pointer ${isLocked ? 'opacity-50' : ''}`}
+          >
+            <div
+              className="absolute bottom-0 w-full bg-blue-500 rounded-full"
+              style={{ height: `${sliderPercentage}%` }}
+            />
+            <div
+              className="absolute left-1/2 -translate-x-1/2 w-6 h-6 bg-white rounded-full shadow-md border border-gray-200 pointer-events-none"
+              style={{ bottom: `calc(${sliderPercentage}% - 12px)` }}
+            />
+          </div>
         </div>
         <div className="flex justify-around">
           <button onClick={() => setTemperature(t => Math.max(MIN_TEMP, t - 0.2))} disabled={isLocked || temperature <= MIN_TEMP} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-full text-2xl disabled:bg-gray-400" aria-label="Decrease temperature">-</button>
