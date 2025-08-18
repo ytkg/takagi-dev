@@ -103,12 +103,23 @@ export default function Remote() {
           <span className="text-6xl font-mono">{temperature.toFixed(1)}</span>
           <span className="text-2xl align-top">&deg;C</span>
         </div>
-        <div className="flex justify-center items-center h-48 mb-6">
-          <div className="relative w-20 h-full flex items-center justify-center">
-            <input type="range" min={MIN_TEMP} max={MAX_TEMP} step="0.2" value={temperature} onChange={handleSliderChange} disabled={isLocked} style={sliderStyle} className="w-36 h-4 rotate-90 appearance-none cursor-pointer rounded-full disabled:opacity-50 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-blue-500" aria-label="Temperature slider" />
-            <div className="absolute -right-8 text-xs text-gray-500">{MIN_TEMP}&deg;C</div>
-            <div className="absolute -left-8 text-xs text-gray-500">{MAX_TEMP}&deg;C</div>
+        <div className="flex justify-center items-center gap-x-4 mb-6" style={{ height: '144px' }}>
+          <div className="flex flex-col justify-between h-full text-xs text-gray-500">
+            <span>{MAX_TEMP}&deg;C</span>
+            <span>{MIN_TEMP}&deg;C</span>
           </div>
+          <input
+            type="range"
+            min={MIN_TEMP}
+            max={MAX_TEMP}
+            step="0.2"
+            value={temperature}
+            onChange={handleSliderChange}
+            disabled={isLocked}
+            style={sliderStyle}
+            className="h-36 w-4 appearance-none cursor-pointer rounded-full disabled:opacity-50 [writing-mode:bt-lr] [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-blue-500"
+            aria-label="Temperature slider"
+          />
         </div>
         <div className="flex justify-around">
           <button onClick={() => setTemperature(t => Math.max(MIN_TEMP, t - 0.2))} disabled={isLocked || temperature <= MIN_TEMP} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-full text-2xl disabled:bg-gray-400" aria-label="Decrease temperature">-</button>
