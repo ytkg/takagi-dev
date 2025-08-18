@@ -9,6 +9,7 @@ import Base64Converter from './pages/Base64Converter';
 import CharacterCounter from './pages/CharacterCounter';
 import QRCodeGenerator from './pages/QRCodeGenerator';
 import UnixTimestampConverter from './pages/UnixTimestampConverter';
+import Remote from './pages/Remote';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/tools/character-counter" element={<CharacterCounter />} />
           <Route path="/tools/qr-code-generator" element={<QRCodeGenerator />} />
           <Route path="/tools/unix-timestamp-converter" element={<UnixTimestampConverter />} />
+          <Route path="/remote" element={<Remote />} />
         </Routes>
       </main>
       <Footer />
