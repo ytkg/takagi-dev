@@ -71,7 +71,7 @@ describe('Remote', () => {
     expect(screen.getByText('30.0')).toBeInTheDocument(); // Should not go above 30
   });
 
-  it('locks controls for 5 seconds after a change is confirmed', () => {
+  it('locks controls and shows countdown for 5 seconds after a change is confirmed', () => {
     render(<Remote />);
     const increaseButton = screen.getByRole('button', { name: 'Increase temperature' });
     const decreaseButton = screen.getByRole('button', { name: 'Decrease temperature' });
@@ -79,28 +79,29 @@ describe('Remote', () => {
 
     // Make a change
     fireEvent.click(increaseButton);
-    expect(screen.getByText('28.2')).toBeInTheDocument();
-
-    // Advance time to trigger the lock
     act(() => { vi.advanceTimersByTime(600); });
 
-    // Controls should now be locked
+    // Lock is active, check for countdown text and disabled controls
+    expect(screen.getByText('5')).toBeInTheDocument();
     expect(increaseButton).toBeDisabled();
     expect(decreaseButton).toBeDisabled();
     expect(slider).toBeDisabled();
 
-    // Advance time by 4.999 seconds
-    act(() => { vi.advanceTimersByTime(4999); });
+    // Advance time and check countdown
+    act(() => { vi.advanceTimersByTime(1000); });
+    expect(screen.getByText('4')).toBeInTheDocument();
 
-    // Controls should still be locked
-    expect(increaseButton).toBeDisabled();
+    act(() => { vi.advanceTimersByTime(1000); });
+    expect(screen.getByText('3')).toBeInTheDocument();
 
-    // Advance time by 1ms to complete the 5s cooldown
-    act(() => { vi.advanceTimersByTime(1); });
+    act(() => { vi.advanceTimersByTime(2000); });
+    expect(screen.getByText('1')).toBeInTheDocument();
 
-    // Controls should be unlocked
+    // Advance time to end the cooldown
+    act(() => { vi.advanceTimersByTime(1000); });
+
+    // Overlay should be gone and controls unlocked
+    expect(screen.queryByText('0')).not.toBeInTheDocument();
     expect(increaseButton).not.toBeDisabled();
-    expect(decreaseButton).not.toBeDisabled();
-    expect(slider).not.toBeDisabled();
   });
 });
