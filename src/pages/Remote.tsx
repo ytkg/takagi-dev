@@ -33,7 +33,7 @@ export default function Remote() {
       setIsFlashing(true);
       playBeep();
       setTimeout(() => setIsFlashing(false), 200); // Flash duration
-    }, 1000); // 1-second delay
+    }, 600); // 0.6-second delay
 
     return () => {
       clearTimeout(handler);
@@ -61,20 +61,20 @@ export default function Remote() {
           <span className="text-6xl font-mono">{temperature.toFixed(1)}</span>
           <span className="text-2xl align-top">&deg;C</span>
         </div>
-        <div className="mb-6">
-          <input
-            type="range"
-            min="16"
-            max="32"
-            step="0.2"
-            value={temperature}
-            onChange={handleSliderChange}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-            aria-label="Temperature slider"
-          />
-          <div className="flex justify-between text-xs text-gray-500 mt-2">
-            <span>16&deg;C</span>
-            <span>32&deg;C</span>
+        <div className="flex justify-center items-center h-48 mb-6">
+          <div className="relative w-20 h-full flex items-center justify-center">
+            <input
+              type="range"
+              min="16"
+              max="32"
+              step="0.2"
+              value={temperature}
+              onChange={handleSliderChange}
+              className="w-36 h-4 -rotate-90 appearance-none cursor-pointer bg-gray-300 rounded-full [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-blue-500"
+              aria-label="Temperature slider"
+            />
+            <div className="absolute -right-8 text-xs text-gray-500">16&deg;C</div>
+            <div className="absolute -left-8 text-xs text-gray-500">32&deg;C</div>
           </div>
         </div>
         <div className="flex justify-around">

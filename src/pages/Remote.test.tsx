@@ -64,14 +64,14 @@ describe('Remote', () => {
     expect(screen.getByText('22.4')).toBeInTheDocument();
   });
 
-  it('flashes and beeps 1 second after the last temperature change', () => {
+  it('flashes and beeps 0.6 seconds after the last temperature change', () => {
     render(<Remote />);
     const indicator = screen.getByTestId('flash-indicator');
     const increaseButton = screen.getByRole('button', { name: 'Increase temperature' });
 
     fireEvent.click(increaseButton);
 
-    act(() => { vi.advanceTimersByTime(999); });
+    act(() => { vi.advanceTimersByTime(599); });
     expect(indicator).toHaveClass('bg-gray-300');
     expect(mockOscillator.start).not.toHaveBeenCalled();
 
@@ -95,7 +95,7 @@ describe('Remote', () => {
 
     expect(mockOscillator.start).not.toHaveBeenCalled();
 
-    act(() => { vi.advanceTimersByTime(1000); });
+    act(() => { vi.advanceTimersByTime(600); });
     expect(mockOscillator.start).toHaveBeenCalledOnce();
   });
 });
