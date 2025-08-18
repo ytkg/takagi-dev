@@ -1,17 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function Remote() {
   const [temperature, setTemperature] = useState(28);
   const [isFlashing, setIsFlashing] = useState(false);
+  const isInitialMount = useRef(true);
 
-  const handleTempChange = (newTemp: number) => {
-    setTemperature(newTemp);
-    setIsFlashing(true);
-    setTimeout(() => setIsFlashing(false), 200);
-  };
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
 
-  const increaseTemp = () => handleTempChange(temperature + 1);
-  const decreaseTemp = () => handleTempChange(temperature - 1);
+    const handler = setTimeout(() => {
+      setIsFlashing(true);
+      setTimeout(() => setIsFlashing(false), 200); // Flash duration
+    }, 1000); // 1-second delay
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [temperature]);
 
   return (
     <div className="bg-gray-100 flex items-center justify-center py-12">
@@ -32,14 +40,14 @@ export default function Remote() {
         </div>
         <div className="flex justify-around">
           <button
-            onClick={decreaseTemp}
+            onClick={() => setTemperature(t => t - 1)}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-full text-2xl"
             aria-label="Decrease temperature"
           >
             -
           </button>
           <button
-            onClick={increaseTemp}
+            onClick={() => setTemperature(t => t + 1)}
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-4 px-6 rounded-full text-2xl"
             aria-label="Increase temperature"
           >
