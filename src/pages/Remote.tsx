@@ -2,7 +2,10 @@ import { useState, useEffect, useRef } from 'react';
 
 export default function Remote() {
   const [temperature, setTemperature] = useState(28.0);
+  const MIN_TEMP = 18;
+  const MAX_TEMP = 30;
   const [isFlashing, setIsFlashing] = useState(false);
+  const [isLocked, setIsLocked] = useState(false);
   const isInitialMount = useRef(true);
 
   const playBeep = () => {
@@ -33,6 +36,10 @@ export default function Remote() {
       setIsFlashing(true);
       playBeep();
       setTimeout(() => setIsFlashing(false), 200); // Flash duration
+
+      // Lock controls for 5 seconds
+      setIsLocked(true);
+      setTimeout(() => setIsLocked(false), 5000);
     }, 600); // 0.6-second delay
 
     return () => {
@@ -42,6 +49,11 @@ export default function Remote() {
 
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTemperature(parseFloat(e.target.value));
+  };
+
+  const sliderPercentage = ((temperature - MIN_TEMP) / (MAX_TEMP - MIN_TEMP)) * 100;
+  const sliderStyle = {
+    background: `linear-gradient(to top, #3b82f6 ${sliderPercentage}%, #d1d5db ${sliderPercentage}%)`,
   };
 
   return (
@@ -65,29 +77,33 @@ export default function Remote() {
           <div className="relative w-20 h-full flex items-center justify-center">
             <input
               type="range"
-              min="16"
-              max="32"
+              min={MIN_TEMP}
+              max={MAX_TEMP}
               step="0.2"
               value={temperature}
               onChange={handleSliderChange}
-              className="w-36 h-4 -rotate-90 appearance-none cursor-pointer bg-gray-300 rounded-full [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-blue-500"
+              disabled={isLocked}
+              style={sliderStyle}
+              className="w-36 h-4 -rotate-90 appearance-none cursor-pointer rounded-full disabled:opacity-50 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-blue-500"
               aria-label="Temperature slider"
             />
-            <div className="absolute -right-8 text-xs text-gray-500">16&deg;C</div>
-            <div className="absolute -left-8 text-xs text-gray-500">32&deg;C</div>
+            <div className="absolute -right-8 text-xs text-gray-500">{MIN_TEMP}&deg;C</div>
+            <div className="absolute -left-8 text-xs text-gray-500">{MAX_TEMP}&deg;C</div>
           </div>
         </div>
         <div className="flex justify-around">
           <button
-            onClick={() => setTemperature(t => t - 0.2)}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-full text-2xl"
+            onClick={() => setTemperature(t => Math.max(MIN_TEMP, t - 0.2))}
+            disabled={isLocked || temperature <= MIN_TEMP}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-full text-2xl disabled:bg-gray-400"
             aria-label="Decrease temperature"
           >
             -
           </button>
           <button
-            onClick={() => setTemperature(t => t + 0.2)}
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-4 px-6 rounded-full text-2xl"
+            onClick={() => setTemperature(t => Math.min(MAX_TEMP, t + 0.2))}
+            disabled={isLocked || temperature >= MAX_TEMP}
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-4 px-6 rounded-full text-2xl disabled:bg-gray-400"
             aria-label="Increase temperature"
           >
             +

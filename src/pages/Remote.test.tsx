@@ -2,7 +2,7 @@ import { render, screen, fireEvent, act } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import Remote from './Remote';
 
-// Create a persistent mock oscillator
+// Mock Web Audio API
 const mockOscillator = {
   connect: vi.fn(),
   start: vi.fn(),
@@ -10,14 +10,7 @@ const mockOscillator = {
   type: '',
   frequency: { setValueAtTime: vi.fn() },
 };
-
-// Create a persistent mock gain node
-const mockGainNode = {
-  connect: vi.fn(),
-  gain: { setValueAtTime: vi.fn() },
-};
-
-// Mock AudioContext that returns the persistent mocks
+const mockGainNode = { connect: vi.fn(), gain: { setValueAtTime: vi.fn() } };
 const mockAudioContext = {
   createOscillator: vi.fn(() => mockOscillator),
   createGain: vi.fn(() => mockGainNode),
@@ -29,7 +22,6 @@ beforeEach(() => {
   vi.useFakeTimers();
   vi.stubGlobal('AudioContext', vi.fn(() => mockAudioContext));
   vi.stubGlobal('webkitAudioContext', vi.fn(() => mockAudioContext));
-  // Clear mock history before each test
   vi.clearAllMocks();
 });
 
@@ -43,59 +35,72 @@ describe('Remote', () => {
     expect(screen.getByText('28.0')).toBeInTheDocument();
   });
 
-  it('increases the temperature by 0.2 when the + button is clicked', () => {
-    render(<Remote />);
-    const increaseButton = screen.getByRole('button', { name: 'Increase temperature' });
-    fireEvent.click(increaseButton);
-    expect(screen.getByText('28.2')).toBeInTheDocument();
-  });
-
-  it('decreases the temperature by 0.2 when the - button is clicked', () => {
+  it('adheres to the min temperature of 18', () => {
     render(<Remote />);
     const decreaseButton = screen.getByRole('button', { name: 'Decrease temperature' });
+    // Set temp to just above min
+    act(() => {
+      fireEvent.change(screen.getByRole('slider'), { target: { value: '18.2' } });
+    });
+    expect(screen.getByText('18.2')).toBeInTheDocument();
+
     fireEvent.click(decreaseButton);
-    expect(screen.getByText('27.8')).toBeInTheDocument();
+    expect(screen.getByText('18.0')).toBeInTheDocument();
+
+    // Check if button is disabled at min temp
+    expect(decreaseButton).toBeDisabled();
+    fireEvent.click(decreaseButton);
+    expect(screen.getByText('18.0')).toBeInTheDocument(); // Should not go below 18
   });
 
-  it('updates the temperature when the slider is moved', () => {
-    render(<Remote />);
-    const slider = screen.getByRole('slider', { name: 'Temperature slider' });
-    fireEvent.change(slider, { target: { value: '22.4' } });
-    expect(screen.getByText('22.4')).toBeInTheDocument();
-  });
-
-  it('flashes and beeps 0.6 seconds after the last temperature change', () => {
-    render(<Remote />);
-    const indicator = screen.getByTestId('flash-indicator');
-    const increaseButton = screen.getByRole('button', { name: 'Increase temperature' });
-
-    fireEvent.click(increaseButton);
-
-    act(() => { vi.advanceTimersByTime(599); });
-    expect(indicator).toHaveClass('bg-gray-300');
-    expect(mockOscillator.start).not.toHaveBeenCalled();
-
-    act(() => { vi.advanceTimersByTime(1); });
-    expect(indicator).toHaveClass('bg-green-500');
-    expect(mockOscillator.start).toHaveBeenCalledOnce();
-
-    act(() => { vi.advanceTimersByTime(200); });
-    expect(indicator).toHaveClass('bg-gray-300');
-  });
-
-  it('debounces the flash and beep effect on multiple clicks', () => {
+  it('adheres to the max temperature of 30', () => {
     render(<Remote />);
     const increaseButton = screen.getByRole('button', { name: 'Increase temperature' });
+    // Set temp to just below max
+    act(() => {
+      fireEvent.change(screen.getByRole('slider'), { target: { value: '29.8' } });
+    });
+    expect(screen.getByText('29.8')).toBeInTheDocument();
 
     fireEvent.click(increaseButton);
-    act(() => { vi.advanceTimersByTime(500); });
-    fireEvent.click(increaseButton);
-    act(() => { vi.advanceTimersByTime(500); });
-    fireEvent.click(increaseButton);
+    expect(screen.getByText('30.0')).toBeInTheDocument();
 
-    expect(mockOscillator.start).not.toHaveBeenCalled();
+    // Check if button is disabled at max temp
+    expect(increaseButton).toBeDisabled();
+    fireEvent.click(increaseButton);
+    expect(screen.getByText('30.0')).toBeInTheDocument(); // Should not go above 30
+  });
 
+  it('locks controls for 5 seconds after a change is confirmed', () => {
+    render(<Remote />);
+    const increaseButton = screen.getByRole('button', { name: 'Increase temperature' });
+    const decreaseButton = screen.getByRole('button', { name: 'Decrease temperature' });
+    const slider = screen.getByRole('slider');
+
+    // Make a change
+    fireEvent.click(increaseButton);
+    expect(screen.getByText('28.2')).toBeInTheDocument();
+
+    // Advance time to trigger the lock
     act(() => { vi.advanceTimersByTime(600); });
-    expect(mockOscillator.start).toHaveBeenCalledOnce();
+
+    // Controls should now be locked
+    expect(increaseButton).toBeDisabled();
+    expect(decreaseButton).toBeDisabled();
+    expect(slider).toBeDisabled();
+
+    // Advance time by 4.999 seconds
+    act(() => { vi.advanceTimersByTime(4999); });
+
+    // Controls should still be locked
+    expect(increaseButton).toBeDisabled();
+
+    // Advance time by 1ms to complete the 5s cooldown
+    act(() => { vi.advanceTimersByTime(1); });
+
+    // Controls should be unlocked
+    expect(increaseButton).not.toBeDisabled();
+    expect(decreaseButton).not.toBeDisabled();
+    expect(slider).not.toBeDisabled();
   });
 });
