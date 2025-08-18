@@ -2,15 +2,8 @@ import { render, screen, fireEvent, act } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import Remote from './Remote';
 
-// Mock Web Audio API
-const mockOscillator = { connect: vi.fn(), start: vi.fn(), stop: vi.fn(), type: '', frequency: { setValueAtTime: vi.fn() } };
-const mockGainNode = { connect: vi.fn(), gain: { setValueAtTime: vi.fn() } };
-const mockAudioContext = { createOscillator: vi.fn(() => mockOscillator), createGain: vi.fn(() => mockGainNode), destination: {}, currentTime: 0 };
-
 beforeEach(() => {
   vi.useFakeTimers();
-  vi.stubGlobal('AudioContext', vi.fn(() => mockAudioContext));
-  vi.stubGlobal('webkitAudioContext', vi.fn(() => mockAudioContext));
   vi.clearAllMocks();
 });
 
@@ -28,12 +21,9 @@ describe('Remote', () => {
     render(<Remote />);
     const gauge = screen.getByTestId('custom-gauge');
 
-    // Mock getBoundingClientRect for the test environment
     const mockRect = { bottom: 200, height: 144, top: 56, left: 0, right: 0, x: 0, y: 56, toJSON: () => {} };
     gauge.getBoundingClientRect = vi.fn(() => mockRect);
 
-    // Click in the middle (y=128), which is (200-128)/144 = 50% of the way up.
-    // 18 + (0.5 * (30-18)) = 18 + 6 = 24.
     act(() => {
       fireEvent.mouseDown(gauge, { clientY: 128 });
       fireEvent.mouseUp(gauge);
@@ -48,7 +38,6 @@ describe('Remote', () => {
     const gauge = screen.getByTestId('custom-gauge');
     gauge.getBoundingClientRect = vi.fn(() => ({ bottom: 200, height: 144, top: 56, left: 0, right: 0, x: 0, y: 56, toJSON: () => {} }));
 
-    // Click at the bottom to set to min temp
     act(() => {
       fireEvent.mouseDown(gauge, { clientY: 200 });
       fireEvent.mouseUp(gauge);
@@ -64,7 +53,6 @@ describe('Remote', () => {
     const gauge = screen.getByTestId('custom-gauge');
     gauge.getBoundingClientRect = vi.fn(() => ({ bottom: 200, height: 144, top: 56, left: 0, right: 0, x: 0, y: 56, toJSON: () => {} }));
 
-    // Click at the top to set to max temp
     act(() => {
       fireEvent.mouseDown(gauge, { clientY: 56 });
       fireEvent.mouseUp(gauge);
@@ -79,19 +67,21 @@ describe('Remote', () => {
     const increaseButton = screen.getByRole('button', { name: 'Increase temperature' });
     const gauge = screen.getByTestId('custom-gauge');
 
-    // Make a change
     fireEvent.click(increaseButton);
     act(() => { vi.advanceTimersByTime(600); });
 
-    // Lock is active, check for countdown text and disabled controls
     expect(screen.getByText('5')).toBeInTheDocument();
     expect(increaseButton).toBeDisabled();
     expect(gauge).toHaveClass('opacity-50');
 
-    // Advance time to end the cooldown
-    act(() => { vi.advanceTimersByTime(5000); });
+    act(() => { vi.advanceTimersByTime(1000); });
+    expect(screen.getByText('4')).toBeInTheDocument();
 
-    // Overlay should be gone and controls unlocked
+    act(() => { vi.advanceTimersByTime(3000); });
+    expect(screen.getByText('1')).toBeInTheDocument();
+
+    act(() => { vi.advanceTimersByTime(1000); });
+
     expect(screen.queryByText('5')).not.toBeInTheDocument();
     expect(increaseButton).not.toBeDisabled();
     expect(gauge).not.toHaveClass('opacity-50');

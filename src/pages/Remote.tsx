@@ -12,20 +12,6 @@ export default function Remote() {
   const [isDragging, setIsDragging] = useState(false);
   const gaugeRef = useRef<HTMLDivElement>(null);
 
-  const playBeep = () => {
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-    if (!audioContext) return;
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(880, audioContext.currentTime);
-    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.1);
-  };
-
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
@@ -34,7 +20,6 @@ export default function Remote() {
 
     const handler = setTimeout(() => {
       setIsFlashing(true);
-      playBeep();
       setTimeout(() => setIsFlashing(false), 200);
 
       setIsLocked(true);
@@ -107,38 +92,36 @@ export default function Remote() {
 
   const sliderPercentage = ((temperature - MIN_TEMP) / (MAX_TEMP - MIN_TEMP)) * 100;
 
-  const circumference = 2 * Math.PI * 54; // r=54
-  const strokeDashoffset = circumference - (cooldownTime / 5) * circumference;
-
   return (
     <div className="bg-gray-100 flex items-center justify-center py-12">
-      <div className="relative bg-white rounded-lg shadow-lg p-8 w-80">
-        {isLocked && (
-          <div className="absolute inset-0 bg-white bg-opacity-80 flex flex-col items-center justify-center z-10">
-            <svg className="w-32 h-32" viewBox="0 0 120 120">
-              <circle cx="60" cy="60" r="54" stroke="#e5e7eb" strokeWidth="12" fill="none" />
-              <circle
-                cx="60"
-                cy="60"
-                r="54"
-                stroke="#3b82f6"
-                strokeWidth="12"
-                fill="none"
-                strokeLinecap="round"
-                transform="rotate(-90 60 60)"
-                strokeDasharray={circumference}
-                strokeDashoffset={strokeDashoffset}
-                className="transition-all duration-1000 linear"
-              />
-              <text x="50%" y="50%" textAnchor="middle" dy=".3em" className="text-4xl font-bold text-gray-700">
-                {cooldownTime}
-              </text>
-            </svg>
-          </div>
-        )}
+      <div className="bg-white rounded-lg shadow-lg p-8 w-80">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-bold text-gray-700">Air Conditioner</h2>
-          <div aria-hidden="true" data-testid="flash-indicator" className={`w-4 h-4 rounded-full transition-colors duration-200 ${isFlashing ? 'bg-green-500' : 'bg-gray-300'}`}></div>
+          <div className="relative w-8 h-8">
+            {isLocked ? (
+              <svg className="w-full h-full" viewBox="0 0 32 32">
+                <circle cx="16" cy="16" r="14" stroke="#e5e7eb" strokeWidth="4" fill="none" />
+                <circle
+                  cx="16"
+                  cy="16"
+                  r="14"
+                  stroke="#3b82f6"
+                  strokeWidth="4"
+                  fill="none"
+                  strokeLinecap="round"
+                  transform="rotate(-90 16 16)"
+                  strokeDasharray={2 * Math.PI * 14}
+                  strokeDashoffset={(2 * Math.PI * 14) - (cooldownTime / 5) * (2 * Math.PI * 14)}
+                  className="transition-all duration-1000 linear"
+                />
+                <text x="50%" y="50%" textAnchor="middle" dy=".3em" className="text-sm font-bold text-gray-700">
+                  {cooldownTime}
+                </text>
+              </svg>
+            ) : (
+              <div aria-hidden="true" data-testid="flash-indicator" className={`w-4 h-4 rounded-full transition-colors duration-200 ${isFlashing ? 'bg-green-500' : 'bg-gray-300'}`}></div>
+            )}
+          </div>
         </div>
         <div className="bg-gray-800 text-white rounded-lg p-4 text-center mb-6">
           <span className="text-6xl font-mono">{temperature.toFixed(1)}</span>
