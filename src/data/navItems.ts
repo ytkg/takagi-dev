@@ -4,6 +4,7 @@ export const navItems: NavItem[] = [
   { type: 'link', text: 'Home', to: '/' },
   { type: 'link', text: 'About', to: '/about' },
   { type: 'link', text: 'Products', to: '/products' },
+  { type: 'link', text: 'Sample', to: '/sample' },
   {
     type: 'dropdown',
     text: 'Tools',
