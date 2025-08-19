@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { motion, PanInfo } from 'framer-motion';
 
 const hiragana = [
@@ -19,7 +19,6 @@ const getRandomHiragana = (exclude: string) => {
 
 export default function Sample() {
   const [character, setCharacter] = useState('あ');
-  const constraintsRef = useRef(null);
 
   const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     const { offset } = info;
@@ -37,10 +36,18 @@ export default function Sample() {
     }
   };
 
+  const dragConstraints = {
+    top: -window.innerHeight,
+    left: -window.innerWidth,
+    right: window.innerWidth,
+    bottom: window.innerHeight,
+  };
+
   return (
-    <div ref={constraintsRef} className="flex justify-center items-center w-full h-screen overflow-hidden -mt-16 -mb-12">
+    <div className="flex justify-center items-center w-full h-screen overflow-hidden -mt-16 -mb-12">
       <motion.div
         drag
+        dragConstraints={dragConstraints}
         dragSnapToOrigin
         onDragEnd={handleDragEnd}
         // Snap back with a spring animation
