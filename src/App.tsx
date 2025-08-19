@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Products from './pages/Products';
+import Sample from './pages/Sample';
 import JsonFormatter from './pages/JsonFormatter';
 import Base64Converter from './pages/Base64Converter';
 import CharacterCounter from './pages/CharacterCounter';
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/sample" element={<Sample />} />
           <Route path="/tools/json-formatter" element={<JsonFormatter />} />
           <Route path="/tools/base64-converter" element={<Base64Converter />} />
           <Route path="/tools/character-counter" element={<CharacterCounter />} />
