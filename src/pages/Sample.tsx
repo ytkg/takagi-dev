@@ -45,8 +45,8 @@ export default function Sample() {
         onDragEnd={handleDragEnd}
         // Snap back with a spring animation
         dragTransition={{
-          bounceStiffness: 600,
-          bounceDamping: 10
+          bounceStiffness: 300,
+          bounceDamping: 8
         }}
         className="text-9xl font-bold cursor-grab active:cursor-grabbing select-none"
       >
