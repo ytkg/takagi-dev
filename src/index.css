@@ -1,12 +1,19 @@
 @import "tailwindcss";
 
-.thumbturn {
-  transform-origin: center center;
-  transition: transform 0.5s ease-in-out;
+.key {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: top 0.5s ease-in-out, opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  transform-origin: top center;
 }
 
-.key-container.unlocked .thumbturn {
-  transform: rotate(90deg);
+.key-container.unlocked .key {
+  top: 50%;
+  opacity: 1;
+  transform: translateX(-50%) translateY(-50%) rotate(90deg);
 }
 
 .keyhole {
