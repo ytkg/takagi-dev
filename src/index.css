@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+.key-container .key {
+  transform: translate(-50%, -120%) scale(0);
+  transform-origin: bottom center;
+  transition: transform 0.5s ease-in-out;
+}
+
+.key-container.unlocked .key {
+  transform: translate(-50%, -50%) scale(1) rotate(90deg);
+}
+
+.keyhole {
+  transition: fill 0.5s ease-in-out;
+}
+
+.key-container.unlocked .keyhole {
+  fill: #ffd700;
+}
