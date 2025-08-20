@@ -1,13 +1,12 @@
 @import "tailwindcss";
 
-.key-container .key {
-  transform: translate(-50%, -120%) scale(0);
-  transform-origin: bottom center;
+.thumbturn {
+  transform-origin: center center;
   transition: transform 0.5s ease-in-out;
 }
 
-.key-container.unlocked .key {
-  transform: translate(-50%, -50%) scale(1) rotate(90deg);
+.key-container.unlocked .thumbturn {
+  transform: rotate(90deg);
 }
 
 .keyhole {

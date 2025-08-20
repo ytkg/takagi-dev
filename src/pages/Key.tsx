@@ -15,24 +15,22 @@ const Keyhole = () => (
   </svg>
 );
 
-const Key = () => (
+const Thumbturn = () => (
   <svg
-    className="key"
+    className="thumbturn"
     width="80"
-    height="180"
-    viewBox="0 0 1024 1024"
+    height="80"
+    viewBox="0 0 100 100"
     style={{
       position: 'absolute',
       top: '50%',
       left: '50%',
+      transform: 'translate(-50%, -50%)',
       transition: 'transform 0.5s ease-in-out',
       zIndex: 0,
     }}
   >
-    <path
-      d="M510.786 76.601c16.263 0 32.546 5.362 44.946 16.097 139.949 121.188 279.9 242.378 419.818 363.587 24.241 20.995 24.295 53.413 0.079 74.396C835.48 652.1 695.28 773.476 555.141 894.897c-11.813 10.238-25.813 15.502-42.45 15.502-19.109-0.528-34.854-5.735-47.854-16.996C326.324 773.382 187.724 653.45 49.275 533.386c-19.581-16.987-24.96-43.81-11.895-65.25 3.919-6.438 8.669-11.829 14.465-16.849 138.108-119.552 276.179-239.135 414.262-358.72 12.296-10.639 28.478-15.966 44.679-15.966z"
-      fill="#D4AF37"
-    />
+    <rect x="30" y="45" width="40" height="10" fill="#D4AF37" />
   </svg>
 );
 
@@ -51,7 +49,7 @@ export default function KeyPage() {
         onClick={handleKeyholeClick}
       >
         <Keyhole />
-        <Key />
+        <Thumbturn />
       </div>
       {isUnlocked && <p className="mt-4 text-2xl font-bold">Unlocked!</p>}
     </div>
