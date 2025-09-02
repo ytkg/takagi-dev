@@ -1,13 +1,13 @@
-import React from 'react';
+import type { ReactNode } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+export default function Modal({ isOpen, onClose, children }: ModalProps) {
   if (!isOpen) return null;
 
   return (
@@ -22,6 +22,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
       >
         <button
           onClick={onClose}
+          aria-label="Close modal"
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 cursor-pointer"
         >
           <XMarkIcon className="h-6 w-6" />
@@ -30,6 +31,4 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
       </div>
     </div>
   );
-};
-
-export default Modal;
+}

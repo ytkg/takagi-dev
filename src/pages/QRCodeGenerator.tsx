@@ -59,12 +59,7 @@ export default function QRCodeGenerator() {
             ref={qrCodeRef}
           >
             {text ? (
-              <QRCode
-                value={text}
-                size={160}
-                viewBox={`0 0 256 256`}
-                title="qr code"
-              />
+              <QRCode value={text} size={160} viewBox="0 0 256 256" title="qr code" />
             ) : (
               <span className="text-gray-400">QR code will appear here</span>
             )}

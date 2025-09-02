@@ -8,11 +8,10 @@ import { MobileDropdown } from './MobileDropdown';
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggle = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggle = () => setIsOpen((v) => !v);
 
   const renderNavItems = (isMobile: boolean) => {
+    const itemClass = `p-4 ${isMobile ? 'w-full text-center' : ''}`;
     return navItems.map((item) => {
       switch (item.type) {
         case 'link':
@@ -20,7 +19,7 @@ export default function Navbar() {
             <Link
               key={item.to}
               to={item.to}
-              className={`p-4 ${isMobile ? 'w-full text-center' : ''}`}
+              className={itemClass}
               onClick={isMobile ? toggle : undefined}
             >
               {item.text}
@@ -33,7 +32,7 @@ export default function Navbar() {
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`p-4 ${isMobile ? 'w-full text-center' : ''}`}
+              className={itemClass}
               onClick={isMobile ? toggle : undefined}
             >
               {item.text}
@@ -54,9 +53,15 @@ export default function Navbar() {
     <>
       <nav className="flex justify-between items-center h-16 bg-white text-black sticky top-0 z-50 shadow-sm font-mono" role="navigation">
         <Link to="/" className="pl-8">takagi.dev</Link>
-        <div className="px-8 cursor-pointer md:hidden" onClick={toggle}>
+        <button
+          type="button"
+          aria-label="Open menu"
+          aria-expanded={isOpen}
+          className="px-8 cursor-pointer md:hidden"
+          onClick={toggle}
+        >
           <Bars3Icon className="h-6 w-6" />
-        </div>
+        </button>
         <div className="pr-4 md:block hidden">
           {renderNavItems(false)}
         </div>
@@ -72,6 +77,7 @@ export default function Navbar() {
       <div
         role="dialog"
         aria-modal="true"
+        aria-label="Mobile navigation"
         className={`fixed top-0 right-0 h-full w-64 bg-gray-800 text-white font-mono z-60 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
       >
         <div className="flex justify-end p-4">

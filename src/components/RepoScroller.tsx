@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import RepoCard from './RepoCard';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
-import { Repository } from '../types';
+import type { Repository } from '../types';
 
 interface RepoScrollerProps {
   repos: Repository[];

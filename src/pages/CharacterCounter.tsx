@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 export default function CharacterCounter() {
   const [input, setInput] = useState('');
@@ -7,9 +7,12 @@ export default function CharacterCounter() {
     setInput('');
   };
 
-  const charCountWithoutNewlines = input.replace(/\n/g, '').length;
-  const charCountWithNewlines = input.length;
-  const wordCount = input.trim().split(/\s+/).filter(Boolean).length;
+  const { charCountWithNewlines, charCountWithoutNewlines, wordCount } = useMemo(() => {
+    const withNewlines = input.length;
+    const withoutNewlines = input.replace(/\n/g, '').length;
+    const words = input.trim() === '' ? 0 : input.trim().split(/\s+/).filter(Boolean).length;
+    return { charCountWithNewlines: withNewlines, charCountWithoutNewlines: withoutNewlines, wordCount: words };
+  }, [input]);
 
   return (
     <div className="p-8">
