@@ -31,6 +31,14 @@ The following scripts are available in `package.json`:
 *   `npm run lint`: Runs the ESLint linter to check for code quality issues.
 *   `npm run preview`: Starts a local server to preview the production build.
 
+### SEO Notes
+
+- Sitemaps/robots: 生成は `vite-plugin-sitemap` に統一（ビルド時に `dist/` へ出力）。
+- Base URL: コードに固定（`https://takagi.dev`）。変更時は `vite.config.ts` の `siteUrl` と `src/components/SEO.tsx` の `SITE_URL` を編集。
+- ルート検出: `src/App.tsx` の `<Route path="..." />` から自動抽出（手動追記不要）。
+- 動的追加/除外: 環境変数 `SITEMAP_EXTRA_PATHS` で追加、`SITEMAP_EXCLUDE_PATHS` で除外（カンマ区切り、任意）。
+- 注意: `public/` 配下に `robots.txt`/`sitemap.xml` を置かない（二重管理回避）。
+
 ## Task Execution Procedure
 
 Here is a typical workflow for completing a task in this repository.

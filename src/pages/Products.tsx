@@ -3,6 +3,7 @@ import ProductCard from '../components/ProductCard';
 import Modal from '../components/Modal';
 import { products } from '../data/products';
 import type { Product } from '../types';
+import SEO from '../components/SEO';
 
 export default function Products() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -20,6 +21,12 @@ export default function Products() {
 
   return (
     <div className="p-8">
+      <SEO
+        title="Products | takagi.dev"
+        description="List of products with overviews and links."
+        path="/products"
+        image="/ogp.png"
+      />
       <h1 className="text-2xl font-bold mb-8">Products</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {products.map((product) => (

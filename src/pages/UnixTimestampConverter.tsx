@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import SEO from '../components/SEO';
 
 export default function UnixTimestampConverter() {
   const [timestamp, setTimestamp] = useState(Math.floor(Date.now() / 1000).toString());
@@ -66,6 +67,12 @@ export default function UnixTimestampConverter() {
 
   return (
     <div className="p-8">
+      <SEO
+        title="Unix Timestamp Converter | takagi.dev"
+        description="Convert between Unix time and UTC datetime."
+        path="/tools/unix-timestamp-converter"
+        image="/ogp.png"
+      />
       <h1 className="text-2xl font-bold mb-4">Unix Timestamp Converter</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SEO from '../components/SEO';
 import { encode, decode } from '../utils/base64';
 
 export default function Base64Converter() {
@@ -36,6 +37,12 @@ export default function Base64Converter() {
 
   return (
     <div className="p-8">
+      <SEO
+        title="Base64 Converter | takagi.dev"
+        description="Encode and decode Base64 quickly online."
+        path="/tools/base64-converter"
+        image="/ogp.png"
+      />
       <h1 className="text-2xl font-bold mb-4">Base64 Encoder / Decoder</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
