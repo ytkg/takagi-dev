@@ -25,7 +25,7 @@ export const MobileDropdown = ({ item, toggleMenu }: MobileDropdownProps) => {
       {isMobileToolsOpen && (
         <div className="bg-gray-700">
           {item.subLinks.map((subLink) => (
-            <Link key={subLink.to} to={subLink.to} className="block p-4" onClick={toggleMenu}>
+            <Link key={subLink.to} to={subLink.to} className="block p-4 hover:text-gray-300 transition-colors" onClick={toggleMenu}>
               {subLink.text}
             </Link>
           ))}

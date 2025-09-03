@@ -11,7 +11,7 @@ export default function Navbar() {
   const toggle = () => setIsOpen((v) => !v);
 
   const renderNavItems = (isMobile: boolean) => {
-    const itemClass = `p-4 ${isMobile ? 'w-full text-center' : ''}`;
+    const itemClass = `p-4 transition-colors ${isMobile ? 'w-full text-center' : 'hover:bg-gray-100 rounded-md'}`;
     return navItems.map((item) => {
       switch (item.type) {
         case 'link':
@@ -52,7 +52,7 @@ export default function Navbar() {
   return (
     <>
       <nav className="flex justify-between items-center h-16 bg-white text-black sticky top-0 z-50 shadow-sm font-mono" role="navigation">
-        <Link to="/" className="pl-8">takagi.dev</Link>
+        <Link to="/" className="ml-4 p-4 hover:bg-gray-100 transition-colors rounded-md">takagi.dev</Link>
         <button
           type="button"
           aria-label="Open menu"
