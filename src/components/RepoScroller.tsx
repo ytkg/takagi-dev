@@ -15,7 +15,7 @@ export default function RepoScroller({ repos }: RepoScrollerProps) {
 
   return (
     <div
-      className="fixed bottom-12 left-0 right-0 w-full overflow-x-auto py-8 no-scrollbar"
+      className="fixed bottom-12 left-0 right-0 z-40 w-full overflow-x-auto py-8 no-scrollbar"
       ref={scrollerRef}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}

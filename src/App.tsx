@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="flex flex-col min-h-[100dvh]">
       <Navbar />
-      <main className="flex-grow">
+      <main className="flex-grow pb-12">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
