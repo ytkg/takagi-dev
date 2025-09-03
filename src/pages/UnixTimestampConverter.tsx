@@ -85,8 +85,8 @@ export default function UnixTimestampConverter() {
           />
           {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
            <div className="mt-4 flex space-x-2">
-            <button onClick={handleSetToNow} className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Set to Now</button>
-            <button onClick={handleCopyToClipboard} className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">Copy</button>
+            <button onClick={handleSetToNow} className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">Set to Now</button>
+            <button onClick={handleCopyToClipboard} className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors">Copy</button>
           </div>
         </div>
         <div>

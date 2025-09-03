@@ -52,7 +52,7 @@ export default function CharacterCounter() {
       <div className="mt-4 flex space-x-2">
         <button
           onClick={handleClear}
-          className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+          className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors"
         >
           Clear
         </button>

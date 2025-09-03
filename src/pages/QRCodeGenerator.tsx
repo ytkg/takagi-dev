@@ -76,14 +76,14 @@ export default function QRCodeGenerator() {
       <div className="mt-4 flex space-x-2">
         <button
           onClick={() => setText('')}
-          className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+          className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors"
           disabled={!text}
         >
           Clear
         </button>
         <button
           onClick={handleSave}
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-blue-300"
+          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-blue-300 transition-colors"
           disabled={!text}
         >
           Save Image

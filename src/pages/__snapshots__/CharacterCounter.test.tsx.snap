@@ -75,7 +75,7 @@ exports[`CharacterCounter > matches the snapshot 1`] = `
       class="mt-4 flex space-x-2"
     >
       <button
-        class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+        class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors"
       >
         Clear
       </button>

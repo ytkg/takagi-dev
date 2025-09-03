@@ -19,11 +19,14 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
         className="bg-white rounded-lg shadow-xl p-8 relative max-w-lg w-full"
         onClick={(e) => e.stopPropagation()}
         data-testid="modal-content"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Dialog"
       >
         <button
           onClick={onClose}
           aria-label="Close modal"
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 cursor-pointer"
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-colors cursor-pointer"
         >
           <XMarkIcon className="h-6 w-6" />
         </button>

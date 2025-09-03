@@ -57,13 +57,13 @@ export default function JsonFormatter() {
       <div className="mt-4 flex space-x-2">
         <button
           onClick={handleFormat}
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
         >
           Format JSON
         </button>
         <button
           onClick={handleClear}
-          className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+          className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors"
         >
           Clear
         </button>

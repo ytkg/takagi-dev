@@ -1,5 +1,5 @@
 /// <reference types="vitest" />
-import { defineConfig } from 'vite'
+import { defineConfig, type PluginOption } from 'vite'
 import react from '@vitejs/plugin-react'
 import { readFileSync } from 'node:fs'
 
@@ -34,12 +34,20 @@ function extractRoutesFromApp(): string[] {
 
 // https://vite.dev/config/
 export default defineConfig(async () => {
-  const plugins: any[] = [react()]
+  const plugins: PluginOption[] = [react() as PluginOption]
 
   // vite-plugin-sitemap を動的読み込み（未導入でもビルドを壊さない）
   try {
     const mod = await import('vite-plugin-sitemap')
-    const sitemap = (mod as any).default || mod
+    type SitemapFn = (opts: {
+      hostname: string
+      dynamicRoutes?: string[]
+      changefreq?: string
+      readable?: boolean
+      generateRobotsTxt?: boolean
+    }) => PluginOption
+    const maybeDefault = (mod as Record<string, unknown>).default as unknown
+    const sitemap = (typeof maybeDefault === 'function' ? maybeDefault : (mod as unknown)) as SitemapFn
     // 環境変数を使わず、固定ドメインを使用
     const siteUrl = 'https://takagi.dev'
     const routes = extractRoutesFromApp()
