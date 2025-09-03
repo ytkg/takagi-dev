@@ -160,8 +160,10 @@
 
 - カード（`BookmarkCard`）
   - 枠: `bg-white` / `border` / `rounded-lg` / `shadow-md`
-  - 本文: タイトル（太字・省略時 `truncate`）と URL（外部リンク・`hover:underline`）
-  - アクション: モーダル非採用のためボタン無し。下部にタグチップを表示
+  - アイキャッチ: 上部に画像（`h-40` / `object-cover`）。
+    - `image` 未設定 or 取得失敗時は `public/no-image.svg` を表示（1200x630相当のプレースホルダ）
+  - 本文: タイトル（太字・折り返し `break-words` で省略しない）と URL（外部リンク・`hover:underline`。URLは必要に応じて `truncate`）
+  - アクション: ボタン無し。下部にタグチップを表示
 
 - フィルタ UI
   - 検索入力: `placeholder="Search by title or URL"`、`aria-label="Search bookmarks"`
@@ -170,7 +172,7 @@
 
 - データ
   - 形式: JSONL（1 行 1 レコード）
-  - フィールド: `url: string`, `title: string`, `tags: string[]`
+  - フィールド: `url: string`, `title: string`, `tags: string[]`, `image?: string`（任意・アイキャッチURL）
   - 配置: `src/data/bookmarks.jsonl`、Vite の `?raw` で文字列として読み込み → 行ごとに `JSON.parse`
 
 - SEO

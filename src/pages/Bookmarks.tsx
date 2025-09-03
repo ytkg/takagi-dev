@@ -7,6 +7,7 @@ type Bookmark = {
   url: string;
   title: string;
   tags: string[];
+  image?: string;
 };
 
 function parseJsonl(text: string): Bookmark[] {
@@ -18,7 +19,8 @@ function parseJsonl(text: string): Bookmark[] {
       try {
         const obj = JSON.parse(line);
         const tags = Array.isArray(obj.tags) ? obj.tags : [];
-        return { url: obj.url, title: obj.title, tags } as Bookmark;
+        const image = typeof obj.image === 'string' && obj.image.trim() ? obj.image.trim() : undefined;
+        return { url: obj.url, title: obj.title, tags, image } as Bookmark;
       } catch {
         return null;
       }

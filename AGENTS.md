@@ -50,7 +50,7 @@ The following scripts are available in `package.json`:
 
 - ページ: `src/pages/Bookmarks.tsx`（ルート: `/bookmarks`）。
 - データ: `src/data/bookmarks.jsonl` に JSON Lines 形式で管理（1 行 = 1 レコード）。
-  - スキーマ: `{ "url": string, "title": string, "tags": string[] }`
+  - スキーマ: `{ "url": string, "title": string, "tags": string[], "image"?: string }`（`image` は任意。カード上部のアイキャッチに使用）
   - 例:
     - `{ "url": "https://example.com", "title": "Example Domain", "tags": ["reference", "example"] }`
 - 取り込み: Vite の `?raw` インポートで文字列として読み込み、行単位で `JSON.parse`。

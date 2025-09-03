@@ -2,6 +2,7 @@ type Bookmark = {
   url: string;
   title: string;
   tags: string[];
+  image?: string;
 };
 
 interface BookmarkCardProps {
@@ -9,10 +10,23 @@ interface BookmarkCardProps {
 }
 
 export default function BookmarkCard({ bookmark }: BookmarkCardProps) {
+  const FALLBACK = '/no-image.svg';
   return (
     <div className="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden flex flex-col justify-between">
+      <img
+        src={bookmark.image || FALLBACK}
+        alt={bookmark.title}
+        className="w-full h-40 object-cover bg-gray-100"
+        loading="lazy"
+        onError={(e) => {
+          const img = e.currentTarget as HTMLImageElement;
+          if (img.src !== window.location.origin + FALLBACK && !img.src.endsWith(FALLBACK)) {
+            img.src = FALLBACK;
+          }
+        }}
+      />
       <div className="p-6">
-        <h3 className="text-xl font-bold mb-2 truncate">{bookmark.title}</h3>
+        <h3 className="text-xl font-bold mb-2 break-words">{bookmark.title}</h3>
         <a
           href={bookmark.url}
           target="_blank"

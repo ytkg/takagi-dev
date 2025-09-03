@@ -194,6 +194,7 @@ async function main(argv) {
     console.log('Commands:');
     console.log('  list   Show bookmarks list');
     console.log('  add <url>   Add a bookmark with fetched title (duplicates are skipped with a warning)');
+    console.log('  update-images [--force]   Fetch og:image for existing records (fill missing by default)');
     process.exit(0);
   }
 
@@ -217,6 +218,14 @@ async function main(argv) {
     return;
   }
 
+  if (cmd === 'update-images') {
+    const force = argv.includes('--force');
+    const app = h(UpdateImagesCommand, { force });
+    const instance = render(app);
+    await instance.waitUntilExit();
+    return;
+  }
+
   console.error(`Unknown command: ${cmd}`);
   process.exit(1);
 }
@@ -235,7 +244,15 @@ function normalizeUrl(input) {
   }
 }
 
-async function fetchTitle(url) {
+function resolveUrlMaybe(value, base) {
+  try {
+    return new URL(value, base).toString();
+  } catch {
+    return null;
+  }
+}
+
+async function fetchPageMeta(url) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 10000);
   try {
@@ -246,10 +263,36 @@ async function fetchTitle(url) {
       }
     });
     const html = await res.text();
-    const m = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
-    if (!m) return null;
-    const raw = m[1].replace(/\s+/g, ' ').trim();
-    return raw || null;
+
+    // Title
+    let title = null;
+    const mt = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+    if (mt) title = (mt[1] || '').replace(/\s+/g, ' ').trim() || null;
+
+    // Meta tags parsing
+    let image = null;
+    const headMatch = html.match(/<head[\s\S]*?<\/head>/i);
+    const head = headMatch ? headMatch[0] : html;
+    const metas = head.match(/<meta\b[^>]*>/gi) || [];
+    const candidates = [];
+    for (const tag of metas) {
+      const attrs = {};
+      const re = /([a-zA-Z\-:]+)\s*=\s*(["'])(.*?)\2/g;
+      let m;
+      while ((m = re.exec(tag))) {
+        attrs[m[1].toLowerCase()] = m[3];
+      }
+      const prop = (attrs.property || attrs.name || '').toLowerCase();
+      if (prop === 'og:image' || prop === 'og:image:secure_url' || prop === 'twitter:image' || prop === 'twitter:image:src') {
+        if (attrs.content) candidates.push(attrs.content);
+      }
+    }
+    for (const c of candidates) {
+      const abs = resolveUrlMaybe(c, url);
+      if (abs) { image = abs; break; }
+    }
+
+    return { title, image };
   } finally {
     clearTimeout(timeout);
   }
@@ -288,10 +331,11 @@ function AddCommand({ url }) {
         return;
       }
 
-      let title = await fetchTitle(normalized);
-      if (!title) title = normalized;
+      const meta = await fetchPageMeta(normalized);
+      const title = meta.title || normalized;
+      const image = meta.image || undefined;
 
-      const record = { url: normalized, title, tags: [] };
+      const record = { url: normalized, title, tags: [], ...(image ? { image } : {}) };
       await appendBookmark(record);
       setState({ step: 'done', message: `Added: ${title} (${normalized})`, color: 'green' });
     })().catch((e) => {
@@ -300,4 +344,44 @@ function AddCommand({ url }) {
   }, [url]);
 
   return h(Text, { color: state.color }, state.message || '');
+}
+
+function UpdateImagesCommand({ force }) {
+  const [lines, setLines] = useState(['Starting image update...']);
+  const [summary, setSummary] = useState('');
+
+  useEffect(() => {
+    (async () => {
+      const list = await loadBookmarks();
+      const next = list.slice();
+      let updated = 0;
+      for (let i = 0; i < list.length; i++) {
+        const b = list[i];
+        if (!force && b.image) {
+          setLines((ls) => [...ls, `skip: ${b.url} (has image)`]);
+          continue;
+        }
+        setLines((ls) => [...ls, `fetch: ${b.url}`]);
+        try {
+          const meta = await fetchPageMeta(b.url);
+          if (meta.image) {
+            next[i] = { ...b, image: meta.image };
+            updated++;
+            setLines((ls) => [...ls, `  -> updated image: ${meta.image}`]);
+          } else {
+            setLines((ls) => [...ls, `  -> no image found`]);
+          }
+        } catch (e) {
+          setLines((ls) => [...ls, `  -> error: ${String(e?.message ?? e)}`]);
+        }
+      }
+      if (updated > 0) await saveBookmarks(next);
+      setSummary(`Done. Updated: ${updated}, Total: ${list.length}${force ? ' (force)' : ''}`);
+    })().catch((e) => setSummary(`Failed: ${String(e?.message ?? e)}`));
+  }, [force]);
+
+  return h(Box, { flexDirection: 'column' }, [
+    ...lines.map((l, i) => h(Text, { key: i }, l)),
+    summary ? h(Text, { key: 'sum', color: 'green' }, summary) : null,
+  ].filter(Boolean));
 }
