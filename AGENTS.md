@@ -11,14 +11,21 @@ This is a web application built with the following technologies:
 *   **Styling:** Tailwind CSS
 *   **Linting:** ESLint
 
+### Design Spec
+
+- `DESIGN.md` はこのプロジェクトのUI/機能仕様書（Source of Truth）です。実装時は `DESIGN.md` を優先し、仕様変更がある場合は必ず同ファイルを更新してください。
+
 ## Project Structure
 
 The codebase is organized as follows:
 
 *   `src/main.tsx`: The main entry point for the application.
 *   `src/App.tsx`: The root component that sets up the application's routing.
-*   `src/pages/`: This directory contains the main page components of the application (e.g., `Home.tsx`, `About.tsx`).
+*   `src/pages/`: This directory contains the main page components of the application (e.g., `Home.tsx`, `About.tsx`, `Bookmarks.tsx`).
 *   `src/components/`: This directory holds reusable components used across different pages (e.g., `Navbar.tsx`, `Footer.tsx`).
+    * `BookmarkCard.tsx`: Bookmarksページ用のカードコンポーネント。
+*   `src/data/`: アプリ内で利用するデータ群。
+    * `bookmarks.jsonl`: Bookmarks用のJSONLデータ（1行=1レコード）。
 *   `public/`: Static assets that are served directly.
 *   `assets/`: Assets that are processed by Vite.
 
@@ -38,6 +45,20 @@ The following scripts are available in `package.json`:
 - ルート検出: `src/App.tsx` の `<Route path="..." />` から自動抽出（手動追記不要）。
 - 動的追加/除外: 環境変数 `SITEMAP_EXTRA_PATHS` で追加、`SITEMAP_EXCLUDE_PATHS` で除外（カンマ区切り、任意）。
 - 注意: `public/` 配下に `robots.txt`/`sitemap.xml` を置かない（二重管理回避）。
+
+### Bookmarks Notes
+
+- ページ: `src/pages/Bookmarks.tsx`（ルート: `/bookmarks`）。
+- データ: `src/data/bookmarks.jsonl` に JSON Lines 形式で管理（1 行 = 1 レコード）。
+  - スキーマ: `{ "url": string, "title": string, "tags": string[] }`
+  - 例:
+    - `{ "url": "https://example.com", "title": "Example Domain", "tags": ["reference", "example"] }`
+- 取り込み: Vite の `?raw` インポートで文字列として読み込み、行単位で `JSON.parse`。
+- UI: 検索（タイトル/URL 部分一致, case-insensitive）とタグチップでのフィルタ（OR 条件）。`Clear` で検索/タグをリセット。
+- 追加作業のヒント:
+  - エントリ追加は `bookmarks.jsonl` に追記（並び順で表示）。
+  - スキーマ拡張時はパーサ（`Bookmarks.tsx` 内 `parseJsonl`）と表示を同期。テスト（`src/pages/Bookmarks.test.tsx`）も更新。
+  - サイトマップは `src/App.tsx` の `<Route path="/bookmarks" />` から自動検出されるため追記不要。
 
 ## Task Execution Procedure
 
@@ -80,8 +101,8 @@ Here is a typical workflow for completing a task in this repository.
     npm run preview
     ```
 
-6.  **Review `AGENTS.md`:**
-    Consider if your changes require updates to this document. For example, if you add a new dependency, a new build step, or change the project structure. If so, please update this file accordingly.
+6.  **Review `AGENTS.md` / `DESIGN.md`:**
+    Consider if your changes require updates to these documents. For example, if you add a new dependency, a new build step, change the project structure, or modify specifications/UX. If so, please update the corresponding file(s) accordingly (仕様は `DESIGN.md` に反映)。
 
 7.  **Submit Your Work:**
     Once you are confident in your changes:
