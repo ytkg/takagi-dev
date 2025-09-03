@@ -149,6 +149,36 @@
   - パス: `/products`、OGP 画像: `/ogp.png`
   - Open Graph/Twitter/canonical を出力（`src/components/SEO.tsx`）
 
+## Bookmarks ページ
+
+- 概要: 自分のブックマークを一覧表示。Products と同等デザインのカードで統一。
+
+- レイアウト
+  - ページ余白: `p-8`、見出し: `h1` に「Bookmarks」
+  - コントロール: 上部に検索入力とタグフィルタ（チップ）。検索はタイトル/URL を部分一致、タグは OR 条件で絞り込み
+  - カード一覧: `grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8`
+
+- カード（`BookmarkCard`）
+  - 枠: `bg-white` / `border` / `rounded-lg` / `shadow-md`
+  - 本文: タイトル（太字・省略時 `truncate`）と URL（外部リンク・`hover:underline`）
+  - アクション: モーダル非採用のためボタン無し。下部にタグチップを表示
+
+- フィルタ UI
+  - 検索入力: `placeholder="Search by title or URL"`、`aria-label="Search bookmarks"`
+  - タグ: すべてのタグをチップ表示（ボタン）。選択状態は反転（`bg-gray-800 text-white`）
+  - 条件: OR（いずれかのタグを含むアイテムを表示）、クリアボタンで検索/タグを初期化
+
+- データ
+  - 形式: JSONL（1 行 1 レコード）
+  - フィールド: `url: string`, `title: string`, `tags: string[]`
+  - 配置: `src/data/bookmarks.jsonl`、Vite の `?raw` で文字列として読み込み → 行ごとに `JSON.parse`
+
+- SEO
+  - タイトル: `Bookmarks | takagi.dev`
+  - ディスクリプション: `Personal list of bookmarked sites.`
+  - パス: `/bookmarks`、OGP 画像: `/ogp.png`
+  - Open Graph/Twitter/canonical を出力（`src/components/SEO.tsx`）
+
 ## Tools: JSON Formatter
 
 - 概要: JSON の整形/検証。入力→フォーマット→出力/エラー表示。
