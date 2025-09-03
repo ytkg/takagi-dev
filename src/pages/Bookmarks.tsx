@@ -28,8 +28,11 @@ function parseJsonl(text: string): Bookmark[] {
     .filter((v): v is Bookmark => v !== null);
 }
 
-export default function Bookmarks() {
-  const bookmarks = useMemo(() => parseJsonl(raw), []);
+type BookmarksProps = { rawData?: string };
+
+export default function Bookmarks({ rawData }: BookmarksProps = {}) {
+  const source = rawData ?? raw;
+  const bookmarks = useMemo(() => parseJsonl(source), [source]);
   const [query, setQuery] = useState('');
   const [activeTags, setActiveTags] = useState<Set<string>>(new Set());
 
