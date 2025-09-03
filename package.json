@@ -9,10 +9,12 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "bm": "node bin/bm"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "ink": "^6.2.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-qr-code": "^2.0.18",
