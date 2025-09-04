@@ -121,7 +121,7 @@ export default function Bookmarks({ rawData }: BookmarksProps = {}) {
       {filtered.length === 0 ? (
         <p className="text-gray-500">No bookmarks found.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
           {filtered.map((b, idx) => (
             <BookmarkCard key={`${b.url}-${idx}`} bookmark={b} />
           ))}

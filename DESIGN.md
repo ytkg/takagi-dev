@@ -127,7 +127,7 @@
 - レイアウト
   - ページ余白: `p-8`
   - 見出し: `h1` に「Products」
-  - カード一覧: `grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8`
+- カード一覧: `grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8`
 
 - カード（`ProductCard`）
   - 枠: `bg-white` / `border` / `rounded-lg` / `shadow-md`
