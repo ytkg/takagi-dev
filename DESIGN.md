@@ -174,6 +174,7 @@
   - 形式: JSONL（1 行 1 レコード）
   - フィールド: `url: string`, `title: string`, `tags: string[]`, `image?: string`（任意・アイキャッチURL）
   - 配置: `src/data/bookmarks.jsonl`、Vite の `?raw` で文字列として読み込み → 行ごとに `JSON.parse`
+  - タグ未設定: `tags` が存在しない、空配列、または空文字のみの場合は内部的に `"other"`（小文字）を自動付与。タグチップの一覧では `other` は常に最後に表示する
 
 - SEO
   - タイトル: `Bookmarks | takagi.dev`

@@ -53,6 +53,7 @@ The following scripts are available in `package.json`:
   - スキーマ: `{ "url": string, "title": string, "tags": string[], "image"?: string }`（`image` は任意。カード上部のアイキャッチに使用）
   - 例:
     - `{ "url": "https://example.com", "title": "Example Domain", "tags": ["reference", "example"] }`
+  - タグ未設定時の扱い: `tags` が未定義/空（空配列・空文字のみ）なら内部的に `other`（小文字）を付与。タグチップ一覧では `other` を常に末尾に並べる（実装は `Bookmarks.tsx` の `parseJsonl` とタグ配列のソート）
 - 取り込み: Vite の `?raw` インポートで文字列として読み込み、行単位で `JSON.parse`。
 - UI: 検索（タイトル/URL 部分一致, case-insensitive）とタグチップでのフィルタ（OR 条件）。`Clear` で検索/タグをリセット。
 - 追加作業のヒント:

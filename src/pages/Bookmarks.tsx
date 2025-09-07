@@ -18,7 +18,13 @@ function parseJsonl(text: string): Bookmark[] {
     .map((line) => {
       try {
         const obj = JSON.parse(line);
-        const tags = Array.isArray(obj.tags) ? obj.tags : [];
+        const rawTags: unknown = obj.tags;
+        const normalized = Array.isArray(rawTags)
+          ? rawTags
+              .map((t) => (typeof t === 'string' ? t.trim() : ''))
+              .filter((t) => t.length > 0)
+          : [];
+        const tags = normalized.length > 0 ? normalized : ['other'];
         const image = typeof obj.image === 'string' && obj.image.trim() ? obj.image.trim() : undefined;
         return { url: obj.url, title: obj.title, tags, image } as Bookmark;
       } catch {
@@ -41,7 +47,11 @@ export default function Bookmarks({ rawData }: BookmarksProps = {}) {
     for (const b of bookmarks) {
       for (const t of b.tags || []) s.add(t);
     }
-    return Array.from(s).sort((a, b) => a.localeCompare(b));
+    return Array.from(s).sort((a, b) => {
+      if (a === 'other' && b !== 'other') return 1; // other を最後へ
+      if (b === 'other' && a !== 'other') return -1;
+      return a.localeCompare(b);
+    });
   }, [bookmarks]);
 
   const toggleTag = useCallback((tag: string) => {

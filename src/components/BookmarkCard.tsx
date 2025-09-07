@@ -11,6 +11,11 @@ interface BookmarkCardProps {
 
 export default function BookmarkCard({ bookmark }: BookmarkCardProps) {
   const FALLBACK = '/no-image.svg';
+  const displayTags = (bookmark.tags || []).reduce<string[]>(
+    (acc, t) => (t === 'other' ? acc : [...acc, t]),
+    [],
+  );
+  if (bookmark.tags?.includes('other')) displayTags.push('other');
   return (
     <div className="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden flex flex-col justify-between">
       <img
@@ -38,9 +43,9 @@ export default function BookmarkCard({ bookmark }: BookmarkCardProps) {
         </a>
       </div>
       <div className="p-6 pt-0">
-        {bookmark.tags && bookmark.tags.length > 0 && (
+        {displayTags.length > 0 && (
           <div className="flex flex-wrap gap-2">
-            {bookmark.tags.map((tag) => (
+            {displayTags.map((tag) => (
               <span key={tag} className="text-xs px-2 py-1 bg-gray-100 rounded-md text-gray-700">#{tag}</span>
             ))}
           </div>
