@@ -21,7 +21,6 @@ export default function CharacterCounter() {
         title="Character & Word Counter | takagi.dev"
         description="Count characters, words, and lines in real time."
         path="/tools/character-counter"
-        image="/ogp.png"
       />
       <h1 className="text-2xl font-bold mb-4">Character & Word Counter</h1>
       <div className="grid grid-cols-1 gap-4">

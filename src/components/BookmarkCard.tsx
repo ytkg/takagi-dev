@@ -1,9 +1,4 @@
-type Bookmark = {
-  url: string;
-  title: string;
-  tags: string[];
-  image?: string;
-};
+import type { Bookmark } from '../types';
 
 interface BookmarkCardProps {
   bookmark: Bookmark;

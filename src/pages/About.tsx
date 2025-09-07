@@ -7,7 +7,6 @@ export default function About() {
         title="About | takagi.dev"
         description="Site owner profile and links."
         path="/about"
-        image="/ogp.png"
       />
       <pre className="lg:text-5xl md:text-4xl sm:text-3xl text-2xl font-mono text-center leading-snug">
         ┌ me ┐ ┌ <a href="https://ytkg.jp" target="_blank" rel="noopener noreferrer">web</a> ┐<br />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import SEO from '../components/SEO';
 
 export default function JsonFormatter() {
@@ -30,7 +30,6 @@ export default function JsonFormatter() {
         title="JSON Formatter | takagi.dev"
         description="Format, minify, and validate JSON online."
         path="/tools/json-formatter"
-        image="/ogp.png"
       />
       <h1 className="text-2xl font-bold mb-4">JSON Formatter</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

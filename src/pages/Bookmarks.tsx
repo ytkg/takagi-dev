@@ -2,37 +2,9 @@ import SEO from '../components/SEO';
 import raw from '../data/bookmarks.jsonl?raw';
 import { useMemo, useState, useCallback } from 'react';
 import BookmarkCard from '../components/BookmarkCard';
+import { parseJsonl } from '../utils/bookmarks';
 
-type Bookmark = {
-  url: string;
-  title: string;
-  tags: string[];
-  image?: string;
-};
-
-function parseJsonl(text: string): Bookmark[] {
-  return text
-    .split(/\r?\n/)
-    .map((l) => l.trim())
-    .filter(Boolean)
-    .map((line) => {
-      try {
-        const obj = JSON.parse(line);
-        const rawTags: unknown = obj.tags;
-        const normalized = Array.isArray(rawTags)
-          ? rawTags
-              .map((t) => (typeof t === 'string' ? t.trim() : ''))
-              .filter((t) => t.length > 0)
-          : [];
-        const tags = normalized.length > 0 ? normalized : ['other'];
-        const image = typeof obj.image === 'string' && obj.image.trim() ? obj.image.trim() : undefined;
-        return { url: obj.url, title: obj.title, tags, image } as Bookmark;
-      } catch {
-        return null;
-      }
-    })
-    .filter((v): v is Bookmark => v !== null);
-}
+// パーサは utils に移動
 
 type BookmarksProps = { rawData?: string };
 
@@ -85,7 +57,6 @@ export default function Bookmarks({ rawData }: BookmarksProps = {}) {
         title="Bookmarks | takagi.dev"
         description="Personal list of bookmarked sites."
         path="/bookmarks"
-        image="/ogp.png"
       />
 
       <h1 className="text-2xl font-bold mb-6">Bookmarks</h1>

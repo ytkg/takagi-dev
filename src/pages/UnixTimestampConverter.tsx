@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import type { ChangeEvent } from 'react';
 import SEO from '../components/SEO';
 
 export default function UnixTimestampConverter() {
@@ -21,7 +22,7 @@ export default function UnixTimestampConverter() {
     }
   }, [timestamp]);
 
-  const handleTimestampChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTimestampChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTimestamp(e.target.value);
   };
 

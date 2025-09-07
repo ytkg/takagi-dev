@@ -27,6 +27,7 @@
 - SEO
   - 全ページで `src/components/SEO.tsx` を用いて title/description/canonical/OG/Twitter を設定。
   - `SITE_URL` は固定ドメイン（`https://takagi.dev`）。必要に応じ JSON-LD を追加可能。
+  - OGP 画像は省略時に `'/ogp.png'` を使用（`SEO.tsx` 内のデフォルト）。
 
 ## ヘッダー
 
@@ -175,6 +176,7 @@
   - フィールド: `url: string`, `title: string`, `tags: string[]`, `image?: string`（任意・アイキャッチURL）
   - 配置: `src/data/bookmarks.jsonl`、Vite の `?raw` で文字列として読み込み → 行ごとに `JSON.parse`
   - タグ未設定: `tags` が存在しない、空配列、または空文字のみの場合は内部的に `"other"`（小文字）を自動付与。タグチップの一覧では `other` は常に最後に表示する
+  - パース実装: `src/utils/bookmarks.ts` の `parseJsonl` を使用（空行/不正行はスキップ）
 
 - SEO
   - タイトル: `Bookmarks | takagi.dev`

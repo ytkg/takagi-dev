@@ -16,6 +16,7 @@ type SEOProps = {
 // 環境変数を使わず、固定ドメインを使用
 const SITE_URL = 'https://takagi.dev';
 const SITE_NAME = 'takagi.dev';
+const DEFAULT_OG_IMAGE = '/ogp.png';
 
 function upsertMetaByName(name: string, content: string) {
   if (!content) return;
@@ -62,7 +63,7 @@ function upsertJsonLd(data: Record<string, unknown> | Record<string, unknown>[])
   el.text = JSON.stringify(data);
 }
 
-export default function SEO({ title, description, path, type = 'website', image, jsonLd }: SEOProps) {
+export default function SEO({ title, description, path, type = 'website', image = DEFAULT_OG_IMAGE, jsonLd }: SEOProps) {
   useEffect(() => {
     // タイトル
     document.title = title;

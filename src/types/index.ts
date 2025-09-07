@@ -14,3 +14,10 @@ export interface Product {
   siteUrl: string;
   repoUrls?: string[];
 }
+
+export interface Bookmark {
+  url: string;
+  title: string;
+  tags: string[];
+  image?: string;
+}

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import SEO from '../components/SEO';
 import QRCode from 'react-qr-code';
 
@@ -45,7 +45,6 @@ export default function QRCodeGenerator() {
         title="QR Code Generator | takagi.dev"
         description="Generate QR codes instantly from text or URLs."
         path="/tools/qr-code-generator"
-        image="/ogp.png"
       />
       <h1 className="text-2xl font-bold mb-4">QR Code Generator</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
