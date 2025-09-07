@@ -36,7 +36,8 @@ export default function BookmarkCard({ bookmark }: BookmarkCardProps) {
           href={bookmark.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-blue-600 hover:underline truncate"
+          className="block w-full text-sm text-blue-600 hover:underline truncate"
+          title={bookmark.url}
           onClick={(e) => e.stopPropagation()}
         >
           {bookmark.url}
