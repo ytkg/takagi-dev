@@ -193,7 +193,7 @@ async function main(argv) {
     console.log('Usage: bm <command>');
     console.log('Commands:');
     console.log('  list   Show bookmarks list');
-    console.log('  add <url>   Add a bookmark with fetched title (duplicates are skipped with a warning)');
+    console.log('  add <url>   Add a bookmark with fetched title; prompts for tags (comma-separated) when interactive (duplicates are skipped with a warning)');
     console.log('  update-images [--force]   Fetch og:image for existing records (fill missing by default)');
     process.exit(0);
   }
@@ -313,9 +313,15 @@ async function appendBookmark(record) {
 }
 
 function AddCommand({ url }) {
+  const { exit } = useApp();
+  const { isRawModeSupported } = useStdin();
+  const interactive = !!isRawModeSupported;
   const [state, setState] = useState({ step: 'init', message: '', color: 'white' });
+  const [record, setRecord] = useState(null);
+  const [tagsInput, setTagsInput] = useState('');
 
   useEffect(() => {
+    let cancelled = false;
     (async () => {
       const normalized = normalizeUrl(url);
       if (!normalized) {
@@ -335,13 +341,66 @@ function AddCommand({ url }) {
       const title = meta.title || normalized;
       const image = meta.image || undefined;
 
-      const record = { url: normalized, title, tags: [], ...(image ? { image } : {}) };
-      await appendBookmark(record);
-      setState({ step: 'done', message: `Added: ${title} (${normalized})`, color: 'green' });
+      const baseRecord = { url: normalized, title, tags: [], ...(image ? { image } : {}) };
+      if (cancelled) return;
+      setRecord(baseRecord);
+      if (interactive) {
+        setTagsInput('');
+        setState({ step: 'input-tags', message: 'タグをカンマ区切りで入力して Enter（Esc でスキップ）', color: 'cyan' });
+      } else {
+        await appendBookmark(baseRecord);
+        if (cancelled) return;
+        setState({ step: 'done', message: `Added: ${title} (${normalized})`, color: 'green' });
+      }
     })().catch((e) => {
       setState({ step: 'done', message: String(e?.message ?? e), color: 'red' });
     });
-  }, [url]);
+    return () => { cancelled = true; };
+  }, [url, interactive]);
+
+  // Exit when done so the CLI terminates after input
+  useEffect(() => {
+    if (state.step === 'done') {
+      const t = setTimeout(() => exit(), 0);
+      return () => clearTimeout(t);
+    }
+  }, [state.step, exit]);
+
+  // Handle interactive tag input
+  useInput((input, key) => {
+    if (state.step !== 'input-tags') return;
+    if (key.escape) {
+      // Save with no tags
+      (async () => {
+        const toSave = record || { url, title: url, tags: [] };
+        await appendBookmark(toSave);
+        setState({ step: 'done', message: `Added: ${toSave.title} (${toSave.url})`, color: 'green' });
+      })().catch((e) => setState({ step: 'done', message: String(e?.message ?? e), color: 'red' }));
+      return;
+    }
+    if (key.return) {
+      (async () => {
+        const tags = tagsInput.split(',').map((s) => s.trim()).filter(Boolean);
+        const toSave = record ? { ...record, tags } : { url, title: url, tags };
+        await appendBookmark(toSave);
+        setState({ step: 'done', message: `Added: ${toSave.title} (${toSave.url})`, color: 'green' });
+      })().catch((e) => setState({ step: 'done', message: String(e?.message ?? e), color: 'red' }));
+      return;
+    }
+    if (key.backspace || key.delete) {
+      setTagsInput((t) => t.slice(0, -1));
+    } else if (input) {
+      setTagsInput((t) => t + input);
+    }
+  });
+
+  if (state.step === 'input-tags') {
+    return h(Box, { flexDirection: 'column' }, [
+      h(Text, { key: 'info', color: 'gray' }, `${record?.title ?? url}  ${record?.url ?? ''}`),
+      h(Text, { key: 'help', color: 'gray' }, state.message),
+      h(Text, { key: 'input' }, tagsInput + '▌'),
+    ]);
+  }
 
   return h(Text, { color: state.color }, state.message || '');
 }
